@@ -9,7 +9,7 @@ initial();
 window.onload = function() {
   const buttonAdd = document.querySelector('.btn-add-task');
   buttonAdd.addEventListener('click', addClickHandler);
-
+  const testTask = new newTask(); // DELETE THIS. JUST USING FOR CSS
   function addClickHandler() {
     console.log('clicked button');
     const testTask = new newTask();
