@@ -30,13 +30,19 @@ function createCurrentPage() {
 
 function createSidebar() {
   const aside = document.createElement('aside');
+  const sideList = document.createElement('ul');
   const btnAddTask = document.createElement('button');
-
+  
   aside.classList.add('sidebar');
+  sideList.classList.add('side-list');
   btnAddTask.classList.add('btn-add-task')
 
   btnAddTask.textContent = '+';
+  
+  const testX = document.createElement('li');
+  testX.textContent = "test";
 
+  aside.appendChild(testX);
   aside.appendChild(btnAddTask);
 
   return aside
