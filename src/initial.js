@@ -1,3 +1,5 @@
+import homePage from "./home";
+
 export default function initial() {
   const body = document.querySelector('body');
 
@@ -21,20 +23,7 @@ function createHeader() {
 }
 
 function createCurrentPage() {
-  const currentPage = document.createElement('section');
-  const displayHeader = document.createElement('h2');
-  const display = document.createElement('div');
-
-  currentPage.classList.add('current-page');
-  displayHeader.classList.add('display-header');
-  display.classList.add('display');
-
-  display.textContent = 'display';
-  displayHeader.textContent = 'display header';
-
-
-  currentPage.appendChild(displayHeader);
-  currentPage.appendChild(display);
+  const currentPage = homePage()
 
   return currentPage
 }
@@ -46,7 +35,7 @@ function createSidebar() {
   aside.classList.add('sidebar');
   btnAddTask.classList.add('btn-add-task')
 
-  btnAddTask.textContent = 'add';
+  btnAddTask.textContent = '+';
 
   aside.appendChild(btnAddTask);
 

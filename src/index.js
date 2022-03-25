@@ -14,6 +14,15 @@ window.onload = function() {
   }
 }
 
+function renderPage(newPage) {
+  const body = document.querySelector('body');
+  const previousPage = document.querySelector('.current-page');
+  previousPage.remove();
+
+  body.appendChild(newPage);
+
+}
+
 // function component() {
 //   const element = document.createElement('div');
 //   const btn = document.createElement('button');
