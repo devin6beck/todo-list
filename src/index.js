@@ -2,6 +2,7 @@ import _ from 'lodash';
 import printMe from './print.js';
 import './style.css';
 import initial from './initial.js';
+import newTask from './new-task-button';
 
 initial();
 
@@ -11,6 +12,8 @@ window.onload = function() {
 
   function addClickHandler() {
     console.log('clicked button');
+    const testTask = new newTask();
+    console.log(`Test ${testTask.dateCreated}`);
   }
 }
 
