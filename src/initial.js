@@ -31,19 +31,25 @@ function createCurrentPage() {
 function createSidebar() {
   const aside = document.createElement('aside');
   const sideList = document.createElement('ul');
-  const btnAddTask = document.createElement('button');
+  const btnNewList = document.createElement('button');
+  const inputNewList = document.createElement('input');
+  const divNewList = document.createElement('div');
   
   aside.classList.add('sidebar');
   sideList.classList.add('side-list');
-  btnAddTask.classList.add('btn-add-task')
+  btnNewList.classList.add('btn-add-task');
+  inputNewList.classList.add('input-new-list');
 
-  btnAddTask.textContent = '+';
+  btnNewList.textContent = '+';
   
   const testX = document.createElement('li');
   testX.textContent = "test";
 
   aside.appendChild(testX);
-  aside.appendChild(btnAddTask);
+  divNewList.appendChild(btnNewList);
+  divNewList.appendChild(inputNewList);
+  aside.appendChild(divNewList);
+  
 
   return aside
 }

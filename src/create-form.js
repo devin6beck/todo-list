@@ -3,7 +3,6 @@ export default function taskForm() {
   const article = document.createElement('article');
   const form = document.createElement('form');
   const titleInput = document.createElement('input');
-  const descriptionInput = document.createElement('input');
   const dateInput = document.createElement('input');
   const submit = document.createElement('input');
   const h3 = document.createElement('h3');

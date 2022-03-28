@@ -2,7 +2,7 @@ import _ from 'lodash';
 import printMe from './print.js';
 import './style.css';
 import initial from './initial.js';
-import newTask from './new-task-button';
+import newTask from './new-task';
 
 initial();
 
