@@ -3,18 +3,14 @@ import printMe from './print.js';
 import './style.css';
 import initial from './initial.js';
 import newTask from './new-task';
+import { newListClickHandler } from './list-logic';
 
 initial();
 
 window.onload = function() {
-  const buttonAdd = document.querySelector('.btn-add-task');
-  buttonAdd.addEventListener('click', addClickHandler);
-  const testTask = new newTask(); // DELETE THIS. JUST USING FOR CSS
-  function addClickHandler() {
-    console.log('clicked button');
-    const testTask = new newTask();
-    console.log(`Test ${testTask.dateCreated}`);
-  }
+  const buttonAdd = document.querySelector('.btn-new-list');
+  buttonAdd.addEventListener('click', newListClickHandler);
+  
 }
 
 function renderPage(newPage) {
