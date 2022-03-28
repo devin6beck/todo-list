@@ -37,15 +37,15 @@ function createSidebar() {
   
   aside.classList.add('sidebar');
   sideList.classList.add('side-list');
-  btnNewList.classList.add('btn-add-task');
+  btnNewList.classList.add('btn-new-list');
   inputNewList.classList.add('input-new-list');
 
   btnNewList.textContent = '+';
   
-  const testX = document.createElement('li');
-  testX.textContent = "test";
+  // const testX = document.createElement('li');
+  // testX.textContent = "test";
 
-  aside.appendChild(testX);
+  // aside.appendChild(testX);
   divNewList.appendChild(btnNewList);
   divNewList.appendChild(inputNewList);
   aside.appendChild(divNewList);
