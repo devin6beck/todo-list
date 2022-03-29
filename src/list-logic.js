@@ -26,9 +26,16 @@ function renderList(newProject) {
     li.className = 'project';
     li.textContent = list[i].title;
     projectList.appendChild(li);
-    li.addEventListener('click', () => {
-      console.log(`You clicked a project`);
-      renderDisplay(newProject);
-    });
   }
+  const projects = document.querySelectorAll('.project');
+  projects.forEach(project => {
+    project.addEventListener('click', (e) => {
+      list.forEach(project => {
+        if (project.title === e.target.textContent) {
+          renderDisplay(project);
+        }
+      })
+    }); 
+  })
+
 }
