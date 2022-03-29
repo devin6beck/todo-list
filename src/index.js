@@ -9,7 +9,11 @@ initial();
 
 const buttonAdd = document.querySelector('.btn-new-project');
 buttonAdd.addEventListener('click', newListClickHandler);
-
+const buttonTask = document.querySelector('.btn-task');
+buttonTask.addEventListener('click', () => {
+  const task = new newTask;
+  console.log(`Test ${task.dateCreated}`);
+  });
 // test
 
 

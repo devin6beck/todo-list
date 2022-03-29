@@ -54,11 +54,11 @@ body {
   cursor: pointer;
 }
 
-.btn-task {
+/* .btn-task {
   position: absolute;
   right: 4%;
   bottom: 10%;
-}
+} */
 
 .header { 
   grid-area: header; 
