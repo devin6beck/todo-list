@@ -49,6 +49,11 @@ body {
   list-style: none;
 }
 
+.project-list {
+  list-style: none;
+  cursor: pointer;
+}
+
 /* .btn-add-task {
   font-size: 2rem;
 } */

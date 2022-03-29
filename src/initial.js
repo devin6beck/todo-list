@@ -36,9 +36,9 @@ function createSidebar() {
   const divNewList = document.createElement('div');
   
   aside.classList.add('sidebar');
-  sideList.classList.add('side-list');
-  btnNewList.classList.add('btn-new-list');
-  inputNewList.classList.add('input-new-list');
+  sideList.classList.add('project-list');
+  btnNewList.classList.add('btn-new-project');
+  inputNewList.classList.add('project-title');
 
   btnNewList.textContent = '+';
   
@@ -48,6 +48,7 @@ function createSidebar() {
   // aside.appendChild(testX);
   divNewList.appendChild(btnNewList);
   divNewList.appendChild(inputNewList);
+  aside.appendChild(sideList)
   aside.appendChild(divNewList);
   
 

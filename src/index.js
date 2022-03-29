@@ -7,11 +7,14 @@ import { newListClickHandler } from './list-logic';
 
 initial();
 
-window.onload = function() {
-  const buttonAdd = document.querySelector('.btn-new-list');
-  buttonAdd.addEventListener('click', newListClickHandler);
-  
-}
+const buttonAdd = document.querySelector('.btn-new-project');
+buttonAdd.addEventListener('click', newListClickHandler);
+
+// test
+
+
+
+//test
 
 function renderPage(newPage) {
   const body = document.querySelector('body');
