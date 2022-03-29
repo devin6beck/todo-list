@@ -7,6 +7,7 @@ export default function homePage() {
   displayHeader.classList.add('display-header');
   display.classList.add('display');
 
+
   display.textContent = 'Home';
   displayHeader.textContent = 'Home display header';
 

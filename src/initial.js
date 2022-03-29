@@ -31,19 +31,26 @@ function createCurrentPage() {
 function createSidebar() {
   const aside = document.createElement('aside');
   const sideList = document.createElement('ul');
-  const btnAddTask = document.createElement('button');
+  const btnNewList = document.createElement('button');
+  const inputNewList = document.createElement('input');
+  const divNewList = document.createElement('div');
   
   aside.classList.add('sidebar');
-  sideList.classList.add('side-list');
-  btnAddTask.classList.add('btn-add-task')
+  sideList.classList.add('project-list');
+  btnNewList.classList.add('btn-new-project');
+  inputNewList.classList.add('project-title');
 
-  btnAddTask.textContent = '+';
+  btnNewList.textContent = '+';
   
-  const testX = document.createElement('li');
-  testX.textContent = "test";
+  // const testX = document.createElement('li');
+  // testX.textContent = "test";
 
-  aside.appendChild(testX);
-  aside.appendChild(btnAddTask);
+  // aside.appendChild(testX);
+  divNewList.appendChild(btnNewList);
+  divNewList.appendChild(inputNewList);
+  aside.appendChild(sideList)
+  aside.appendChild(divNewList);
+  
 
   return aside
 }

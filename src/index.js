@@ -2,17 +2,19 @@ import _ from 'lodash';
 import printMe from './print.js';
 import './style.css';
 import initial from './initial.js';
+import newTask from './new-task';
+import { newListClickHandler } from './list-logic';
 
 initial();
 
-window.onload = function() {
-  const buttonAdd = document.querySelector('.btn-add-task');
-  buttonAdd.addEventListener('click', addClickHandler);
+const buttonAdd = document.querySelector('.btn-new-project');
+buttonAdd.addEventListener('click', newListClickHandler);
 
-  function addClickHandler() {
-    console.log('clicked button');
-  }
-}
+// test
+
+
+
+//test
 
 function renderPage(newPage) {
   const body = document.querySelector('body');

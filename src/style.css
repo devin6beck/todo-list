@@ -49,6 +49,11 @@ body {
   list-style: none;
 }
 
+.project-list {
+  list-style: none;
+  cursor: pointer;
+}
+
 /* .btn-add-task {
   font-size: 2rem;
 } */
@@ -64,3 +69,21 @@ body {
   border: 2px solid red;
 
 }
+
+.form-container {
+  position: absolute;
+  z-index: 100;
+  margin-top: 20%;
+  justify-self: center;
+  width: 40vw;
+  min-width: 200px;
+  background-color: white;
+  color: black;
+  border-radius: 25px;
+}
+
+.form {
+  border: 1px solid red;
+  
+}
+
