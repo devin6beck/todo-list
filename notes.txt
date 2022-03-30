@@ -1,6 +1,2 @@
-Need to build logic to add a new list to the sidebar. Will have to render/reload
-the page when a new list is added. 
-
-
-add task button needs to be moved to the bottom of the display screen and out 
-of the sidebar.
+set the defualt project to class active-project from the page load. 
+-- class active-project is not being removed when a differnt project is clicked.

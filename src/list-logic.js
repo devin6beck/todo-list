@@ -28,13 +28,16 @@ function renderList(newProject) {
     li.className = 'project';
     li.textContent = list[i].title;
     projectList.appendChild(li);
+    if (li.textContent === 'Default Project') {
+      li.classList.add('active-project');
+    }
   }
   const projects = document.querySelectorAll('.project');
   projects.forEach(project => {
     project.addEventListener('click', (e) => {
       list.forEach(project => {
         if (project.title === e.target.textContent) {
-          const activeProject = document.querySelector('active-project');
+          const activeProject = document.querySelector('.active-project');
           if (activeProject) {
             activeProject.classList.remove('active-project');
           }
