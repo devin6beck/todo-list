@@ -1,2 +1,6 @@
-set the defualt project to class active-project from the page load. 
--- class active-project is not being removed when a differnt project is clicked.
+create function to bring up task form when a task is clicked so that it can
+be eddited
+
+add more detail when the task is displays... due date, date created, notes
+
+add a way to delete task and projects
