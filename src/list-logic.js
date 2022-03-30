@@ -1,5 +1,7 @@
 import Project from './project.js';
 import renderDisplay from './render-display.js';
+import taskForm from './create-form';
+import newTask from './new-task';
 
 let list = [];
 
@@ -44,6 +46,30 @@ function renderList(newProject) {
   })
 
 }
+
+export function createTaskHandler() {
+  taskForm();
+  const taskTitle = document.querySelector('.task-title');
+  const taskDueDate = document.querySelector('.due-date');
+  const btnSubmit = document.querySelector('.submit-task');
+  btnSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const task = new newTask(taskTitle.value);
+    const formContainer = document.querySelector('.form-container');
+    const activeProject = document.querySelector('.active-project');
+    task.date = taskDueDate.value;
+    console.log(task);
+    console.log(`active project: ${activeProject.textContent}`);
+    list.forEach(project => {
+      if (project.title === activeProject.textContent) {
+        project.taskList.push(task);
+        formContainer.remove();
+        renderDisplay(project);
+      }
+    })
+  })
+}
+
 
 export function defaultProject() {
   const defaultProject = new Project('Default Project');

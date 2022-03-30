@@ -12,6 +12,7 @@ export default function initial() {
   body.appendChild(createFooter());
 
   const firstProject = defaultProject();
+  
   renderDisplay(firstProject);
 
 }
