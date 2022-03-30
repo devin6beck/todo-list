@@ -32,10 +32,23 @@ function renderList(newProject) {
     project.addEventListener('click', (e) => {
       list.forEach(project => {
         if (project.title === e.target.textContent) {
+          const activeProject = document.querySelector('active-project');
+          if (activeProject) {
+            activeProject.classList.remove('active-project');
+          }
+          e.target.classList.add('active-project');
           renderDisplay(project);
         }
       })
     }); 
   })
 
+}
+
+export function defaultProject() {
+  const defaultProject = new Project('Default Project');
+  console.log(`Here is the default project ${defaultProject.title}`);
+  list.push(defaultProject);
+  renderList(defaultProject);
+  return defaultProject;
 }

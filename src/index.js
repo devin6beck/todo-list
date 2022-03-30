@@ -4,6 +4,7 @@ import './style.css';
 import initial from './initial.js';
 import newTask from './new-task';
 import { newListClickHandler } from './list-logic';
+import taskForm from './create-form';
 
 initial();
 
@@ -11,9 +12,18 @@ const buttonAdd = document.querySelector('.btn-new-project');
 buttonAdd.addEventListener('click', newListClickHandler);
 const buttonTask = document.querySelector('.btn-task');
 buttonTask.addEventListener('click', () => {
-  const task = new newTask;
-  console.log(`Test ${task.dateCreated}`);
-  });
+  taskForm();
+  const taskTitle = document.querySelector('.task-title');
+  const taskDueDate = document.querySelector('.due-date');
+  const btnSubmit = document.querySelector('.submit-task');
+  btnSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const task = new newTask(taskTitle.value);
+    task.date = taskDueDate.value;
+    console.log(task);
+    
+  })
+});
 // test
 
 

@@ -3,11 +3,11 @@ import taskForm from './create-form';
 
 export default class newTask {
   /* Create a new date with the format of "Sunday, April 29th, 1453" */
-  constructor() {
+  constructor(title) {
     this.dateCreated = format(new Date(), "PPPP");
-    this.title;
+    this.title = title;
     this.date;
-    taskForm()
+    // taskForm()
   }
 }
 

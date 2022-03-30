@@ -38,6 +38,11 @@ body {
 
 }
 
+.task-item {
+  list-style: none;
+  cursor: pointer;
+}
+
 .sidebar { 
   grid-area: sidebar; 
   border: 2px solid yellow;

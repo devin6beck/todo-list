@@ -14,9 +14,12 @@ export default function taskForm() {
   
   titleInput.type = 'text';
   titleInput.name = 'title';
+  titleInput.classList.add('task-title');
   titleLabel.htmlFor = 'title'
   dateInput.type = 'date';
+  dateInput.classList.add('due-date')
   submit.type = 'submit';
+  submit.classList.add('submit-task');
 
   h3.textContent = 'New Task';
   titleLabel.textContent = 'Title'

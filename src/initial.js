@@ -1,12 +1,18 @@
 import homePage from "./home";
+import { defaultProject } from "./list-logic";
+import renderDisplay from "./render-display";
 
 export default function initial() {
   const body = document.querySelector('body');
 
   body.appendChild(createHeader());
-  body.appendChild(createCurrentPage());
   body.appendChild(createSidebar());
+  body.appendChild(createCurrentPage());
+  
   body.appendChild(createFooter());
+
+  const firstProject = defaultProject();
+  renderDisplay(firstProject);
 
 }
 
@@ -23,9 +29,31 @@ function createHeader() {
 }
 
 function createCurrentPage() {
-  const currentPage = homePage()
+  
+  const defaultPage = document.createElement('section');
+  const displayHeader = document.createElement('h2');
+  const display = document.createElement('div');
+  const optionsContainer = document.createElement('div');
+  const taskBtn = document.createElement('button');
 
-  return currentPage
+  defaultPage.classList.add('current-page');
+  displayHeader.classList.add('display-header');
+  display.classList.add('display');
+  optionsContainer.classList.add('options-container');
+  taskBtn.classList.add('btn-task');
+
+  
+  
+  // display.textContent = 'Home';
+  // displayHeader.textContent = 'Home display header';
+  taskBtn.textContent = 'Create Task';
+
+  optionsContainer.appendChild(taskBtn);
+  defaultPage.appendChild(displayHeader);
+  defaultPage.appendChild(display);
+  defaultPage.appendChild(optionsContainer);
+
+  return defaultPage
 }
 
 function createSidebar() {

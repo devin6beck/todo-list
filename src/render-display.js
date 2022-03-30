@@ -1,14 +1,25 @@
 export default function renderDisplay(project) {
   const display = document.querySelector('.display');
   const displayHeader = document.querySelector('.display-header');
-  display.textContent = project.title;
+  const taskHolder = document.createElement('ul');
+
+  taskHolder.classList.add('task-holder');
   displayHeader.textContent = project.title;
-  display.appendChild(createTaskBtn());
+
+  // clear the display
+  while(display.firstChild) {
+    display.removeChild(display.firstChild);
+  }
+
+  // Add tasks to display
+  project.taskList.forEach(task => {
+    const taskItem = document.createElement('li');
+    taskItem.classList.add('task-item');
+    taskItem.textContent = task.title;
+    taskHolder.appendChild(taskItem);
+  });
+
+  display.appendChild(taskHolder);
+
 }
 
-function createTaskBtn() {
-  const taskBtn = document.createElement('button');
-  taskBtn.classList.add('btn-task');
-  taskBtn.textContent = '+';
-  return taskBtn;
-}
