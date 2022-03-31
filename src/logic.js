@@ -24,10 +24,20 @@ function renderProjectList(newProject) {
     projectList.removeChild( projectList.firstChild );
   }
   for (let i = 0; i < list.length; i++) {
+    const projectContainer = document.createElement('div');
     const li = document.createElement('li');
+    const btnDelete = document.createElement('button');
+
+    projectContainer.className = 'project-container';
     li.className = 'project';
+    btnDelete.className = 'btn-delete-project';
+
     li.textContent = list[i].title;
-    projectList.appendChild(li);
+    btnDelete.textContent = 'X';
+    // btnDelete.classList.add(li.textContent);
+    projectContainer.appendChild(li);
+    projectContainer.appendChild(btnDelete);
+    projectList.appendChild(projectContainer);
     if (li.textContent === 'Default Project') {
       li.classList.add('active-project');
     }

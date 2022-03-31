@@ -55,12 +55,27 @@ body {
 }
 
 .new-project-input-container {
-  display: flex;
-  justify-content: space-around;
+  margin-left: 20px;
 }
 
 .project-list {
   cursor: pointer;
+}
+
+.project-container,
+.new-project-input-container {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 10px;
+}
+
+button {
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.btn-delete-project {
+  color: red;
 }
 
 /* .btn-task {
