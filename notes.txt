@@ -1,11 +1,16 @@
 create function to bring up task form when a task is clicked so that it can
 be edited
 
+When a project is created the display should show the new project. 
+
 add more detail when the task is displays... due date, date created, notes
 
-add a way to delete task and projects
---need to find a unique way to id each project delete button. maybe date
+add a way to delete task
 
 a task should not be created if there is no title or input
 
 move all render code to a render.js file and all click handlers to a handle.js file
+
+When all projects are deleted it causes an error.
+--Have render display go blank if all projects are deleted ||
+--Make it so a default project can not be deleted so it always have something to display
