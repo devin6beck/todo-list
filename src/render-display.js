@@ -15,7 +15,7 @@ export default function renderDisplay(project) {
   project.taskList.forEach(task => {
     const taskItem = document.createElement('li');
     taskItem.classList.add('task-item');
-    taskItem.textContent = task.title;
+    taskItem.textContent = `${task.title} due ${task.date}`; 
     taskHolder.appendChild(taskItem);
   });
 

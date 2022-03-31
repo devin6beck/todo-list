@@ -12,13 +12,13 @@ export function newListClickHandler() {
     return;
   }
   list.push(newProject);
-  renderList(newProject);
+  renderProjectList(newProject);
   projectTitle.value = null;
   // const testTask = new newTask();
   // console.log(`Test ${testTask.dateCreated}`);
 }
 
-function renderList(newProject) {
+function renderProjectList(newProject) {
   const projectList = document.querySelector('.project-list');
   while( projectList.firstChild ){
     projectList.removeChild( projectList.firstChild );
@@ -78,6 +78,6 @@ export function defaultProject() {
   const defaultProject = new Project('Default Project');
   console.log(`Here is the default project ${defaultProject.title}`);
   list.push(defaultProject);
-  renderList(defaultProject);
+  renderProjectList(defaultProject);
   return defaultProject;
 }
