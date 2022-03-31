@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import './style.css';
 import initial from './initial.js';
-import { createProjectHandler, createTaskHandler } from './list-logic';
+import { createProjectHandler, createTaskHandler } from './logic';
 
 initial();
 

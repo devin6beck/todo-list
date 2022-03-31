@@ -1,4 +1,4 @@
-import { defaultProject } from "./list-logic";
+import { defaultProject } from "./logic";
 import renderDisplay from "./render-display";
 
 export default function initial() {
