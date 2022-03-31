@@ -6,11 +6,12 @@ export default class Project {
   constructor(title) {
     this.dateCreated = format(new Date(), "PPPP");
     this.title = title;
-    this.taskList = [defaultTask()];
+    this.taskList = [defaultTask()]; // can remove this line for final project
   }
 }
 
+// can remove this code for final project
 function defaultTask() {
-  const task = new Task('Defaut Task');
+  const task = new Task('Default Task');
   return task;
 }
