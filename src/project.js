@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import newTask from './new-task';
+import Task from './task';
 
 export default class Project {
   /* Create a new date with the format of "Sunday, April 29th, 1453" */
@@ -11,6 +11,6 @@ export default class Project {
 }
 
 function defaultTask() {
-  const task = new newTask('Defaut Task');
+  const task = new Task('Defaut Task');
   return task;
 }

@@ -1,17 +1,14 @@
 import _ from 'lodash';
-import printMe from './print.js';
 import './style.css';
 import initial from './initial.js';
-import newTask from './new-task';
-import { newListClickHandler, createTaskHandler } from './list-logic';
-import taskForm from './create-form';
+import { createProjectHandler, createTaskHandler } from './list-logic';
 
 initial();
 
-const buttonAdd = document.querySelector('.btn-new-project');
-buttonAdd.addEventListener('click', newListClickHandler);
-const buttonTask = document.querySelector('.btn-task');
-buttonTask.addEventListener('click', createTaskHandler);
+const buttonCreateProject = document.querySelector('.btn-new-project');
+buttonCreateProject.addEventListener('click', createProjectHandler);
+const buttonCreateTask = document.querySelector('.btn-task');
+buttonCreateTask.addEventListener('click', createTaskHandler);
 // test
 
 

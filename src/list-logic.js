@@ -1,11 +1,11 @@
 import Project from './project.js';
 import renderDisplay from './render-display.js';
 import taskForm from './create-form';
-import newTask from './new-task';
+import Task from './task';
 
 let list = [];
 
-export function newListClickHandler() {
+export function createProjectHandler() {
   const projectTitle = document.querySelector('.project-title');
   const newProject = new Project(projectTitle.value);
   if (projectTitle.value === null || projectTitle.value === '') {
@@ -57,7 +57,7 @@ export function createTaskHandler() {
   const btnSubmit = document.querySelector('.submit-task');
   btnSubmit.addEventListener('click', (e) => {
     e.preventDefault();
-    const task = new newTask(taskTitle.value);
+    const task = new Task(taskTitle.value);
     const formContainer = document.querySelector('.form-container');
     const activeProject = document.querySelector('.active-project');
     task.date = taskDueDate.value;
