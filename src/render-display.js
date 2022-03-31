@@ -19,7 +19,7 @@ export default function renderDisplay(project) {
     taskHolder.appendChild(taskItem);
   });
 
+  // Add the task holder to the display
   display.appendChild(taskHolder);
-
 }
 
