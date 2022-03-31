@@ -7,3 +7,4 @@ add a way to delete task and projects
 
 a task should not be created if there is no title or input
 
+move all render code to a render.js file and all click handlers to a handle.js file
