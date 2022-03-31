@@ -1,5 +1,4 @@
 import { format } from 'date-fns'
-import taskForm from './task-form';
 
 export default class Task {
   /* Create a new date with the format of "Sunday, April 29th, 1453" */
@@ -10,8 +9,3 @@ export default class Task {
     // taskForm()
   }
 }
-
-/* 
-let today = new Date();
-let testDate = format(today, "PPPP ") 
-*/
