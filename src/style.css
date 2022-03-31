@@ -60,6 +60,7 @@ body {
 
 .project-list {
   cursor: pointer;
+  word-wrap: break-word;
 }
 
 .project-container,
@@ -67,6 +68,7 @@ body {
   display: flex;
   justify-content: space-between;
   margin-right: 10px;
+
 }
 
 button {
