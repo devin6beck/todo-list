@@ -11,7 +11,7 @@ export default function renderDisplay(project) {
     display.removeChild(display.firstChild);
   }
 
-  // Add tasks to display
+  // Add each task from the active project to the display
   project.taskList.forEach(task => {
     const taskItem = document.createElement('li');
     taskItem.classList.add('task-item');
