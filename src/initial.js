@@ -1,4 +1,3 @@
-import homePage from "./home";
 import { defaultProject } from "./list-logic";
 import renderDisplay from "./render-display";
 
@@ -43,10 +42,6 @@ function createCurrentPage() {
   optionsContainer.classList.add('options-container');
   taskBtn.classList.add('btn-task');
 
-  
-  
-  // display.textContent = 'Home';
-  // displayHeader.textContent = 'Home display header';
   taskBtn.textContent = 'Create Task';
 
   optionsContainer.appendChild(taskBtn);
