@@ -57,6 +57,11 @@ export function createTaskHandler() {
   const btnSubmit = document.querySelector('.submit-task');
   btnSubmit.addEventListener('click', (e) => {
     e.preventDefault();
+    if (taskTitle.value === null || taskTitle.value === '' || 
+      taskDueDate.value === null || taskDueDate.value === '') {
+      alert('Please enter a title and due date');
+      return;
+    }
     const task = new Task(taskTitle.value);
     const formContainer = document.querySelector('.form-container');
     const activeProject = document.querySelector('.active-project');
