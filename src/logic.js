@@ -12,22 +12,35 @@ export function createProjectHandler() {
     return;
   }
   list.push(newProject);
-  renderProjectList(newProject);
+  renderProjectList();
   projectTitle.value = null;
   // const testTask = new newTask();
   // console.log(`Test ${testTask.dateCreated}`);
 }
 
-function renderProjectList(newProject) {
+function renderProjectList() {
   const projectList = document.querySelector('.project-list');
   while( projectList.firstChild ){
     projectList.removeChild( projectList.firstChild );
   }
   for (let i = 0; i < list.length; i++) {
+    const projectContainer = document.createElement('div');
     const li = document.createElement('li');
+    const btnDelete = document.createElement('button');
+
+    projectContainer.className = 'project-container';
     li.className = 'project';
+    btnDelete.className = 'btn-delete-project';
+
     li.textContent = list[i].title;
-    projectList.appendChild(li);
+    btnDelete.textContent = 'X';
+    // create a unique id for each project using the date and time created with
+    // everything but numbers removed. 
+    btnDelete.id = list[i].dateCreated.replace(/\D/g, '');
+    li.id = list[i].dateCreated.replace(/\D/g, '');
+    projectContainer.appendChild(li);
+    projectContainer.appendChild(btnDelete);
+    projectList.appendChild(projectContainer);
     if (li.textContent === 'Default Project') {
       li.classList.add('active-project');
     }
@@ -47,6 +60,22 @@ function renderProjectList(newProject) {
       })
     }); 
   })
+
+  const btnDeleteProjects = document.querySelectorAll('.btn-delete-project');
+  btnDeleteProjects.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      list.forEach(project => {
+        if (project.id === e.target.id) {
+          list.splice(list.indexOf(project), 1);
+          console.log(list);
+          renderProjectList();
+          // When a project is delete the display shows the first project in list
+          renderDisplay(list[0]);
+        }
+      })
+
+    });
+  });
 
 }
 

@@ -4,6 +4,7 @@ be edited
 add more detail when the task is displays... due date, date created, notes
 
 add a way to delete task and projects
+--need to find a unique way to id each project delete button. maybe date
 
 a task should not be created if there is no title or input
 
