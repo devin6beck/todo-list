@@ -13,9 +13,8 @@ export function createProjectHandler() {
   }
   list.push(newProject);
   renderProjectList();
+  renderDisplay(newProject);
   projectTitle.value = null;
-  // const testTask = new newTask();
-  // console.log(`Test ${testTask.dateCreated}`);
 }
 
 function renderProjectList() {
