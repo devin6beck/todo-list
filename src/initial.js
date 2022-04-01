@@ -1,6 +1,6 @@
 import { renderDisplay, renderProjectList } from "./render";
 import Project from "./project";
-import { list } from "./logic";
+import { list } from "./handlers";
 
 export default function initial() {
   const body = document.querySelector('body');

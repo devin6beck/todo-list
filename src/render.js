@@ -1,4 +1,4 @@
-import { list } from "./logic";
+import { list } from "./handlers";
 
 export function renderDisplay(project) {
   const display = document.querySelector('.display');
