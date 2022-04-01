@@ -15,3 +15,5 @@ create a function to combine the project delete button and task delete button
 functionality 
 
 When a new project is made it should become the active-project
+
+branch active-project is broken. Trying to "When a new project is made it should become the active-project"
