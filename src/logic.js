@@ -46,9 +46,3 @@ export function createTaskHandler() {
 }
 
 
-export function defaultProject() {
-  const defaultProject = new Project('Default Project');
-  list.push(defaultProject);
-  renderProjectList(defaultProject);
-  return defaultProject;
-}

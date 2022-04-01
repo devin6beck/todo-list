@@ -1,5 +1,6 @@
-import { defaultProject } from "./logic";
-import { renderDisplay } from "./render";
+import { renderDisplay, renderProjectList } from "./render";
+import Project from "./project";
+import { list } from "./logic";
 
 export default function initial() {
   const body = document.querySelector('body');
@@ -95,4 +96,11 @@ function createFooter() {
   footer.appendChild(span);
 
   return footer;
+}
+
+function defaultProject() {
+  const project = new Project('Default Project');
+  list.push(project);
+  renderProjectList(project);
+  return project;
 }
