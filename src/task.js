@@ -6,6 +6,6 @@ export default class Task {
     this.dateCreated = format(new Date(), "PPpp");
     this.title = title;
     this.date;
-    // taskForm()
+    this.id = this.dateCreated.replace(/\D/g, '');
   }
 }

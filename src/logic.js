@@ -25,20 +25,20 @@ function renderProjectList() {
   for (let i = 0; i < list.length; i++) {
     const projectContainer = document.createElement('div');
     const li = document.createElement('li');
-    const btnDelete = document.createElement('button');
+    const btnDeleteProject = document.createElement('button');
 
     projectContainer.className = 'project-container';
     li.className = 'project';
-    btnDelete.className = 'btn-delete-project';
+    btnDeleteProject.className = 'btn-delete-project';
 
     li.textContent = list[i].title;
-    btnDelete.textContent = 'X';
+    btnDeleteProject.textContent = 'X';
     // create a unique id for each project using the date and time created with
     // everything but numbers removed. 
-    btnDelete.id = list[i].dateCreated.replace(/\D/g, '');
+    btnDeleteProject.id = list[i].dateCreated.replace(/\D/g, '');
     li.id = list[i].dateCreated.replace(/\D/g, '');
     projectContainer.appendChild(li);
-    projectContainer.appendChild(btnDelete);
+    projectContainer.appendChild(btnDeleteProject);
     projectList.appendChild(projectContainer);
     if (li.textContent === 'Default Project') {
       li.classList.add('active-project');
