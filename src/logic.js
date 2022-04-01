@@ -66,7 +66,6 @@ function renderProjectList() {
       list.forEach(project => {
         if (project.id === e.target.id) {
           list.splice(list.indexOf(project), 1);
-          console.log(list);
           renderProjectList();
           // When a project is delete the display shows the first project in list
           renderDisplay(list[0]);
@@ -94,8 +93,6 @@ export function createTaskHandler() {
     const formContainer = document.querySelector('.form-container');
     const activeProject = document.querySelector('.active-project');
     task.date = taskDueDate.value;
-    console.log(task);
-    console.log(`active project: ${activeProject.textContent}`);
     list.forEach(project => {
       if (project.title === activeProject.textContent) {
         project.taskList.push(task);
@@ -109,7 +106,6 @@ export function createTaskHandler() {
 
 export function defaultProject() {
   const defaultProject = new Project('Default Project');
-  console.log(`Here is the default project ${defaultProject.title}`);
   list.push(defaultProject);
   renderProjectList(defaultProject);
   return defaultProject;
