@@ -1,9 +1,10 @@
 import Project from './project.js';
-import renderDisplay from './render-display.js';
+import {renderDisplay, renderProjectList} from './render.js';
 import taskForm from './task-form';
 import Task from './task';
 
-let list = [];
+export let list = [];
+
 
 export function createProjectHandler() {
   const projectTitle = document.querySelector('.project-title');
@@ -17,65 +18,6 @@ export function createProjectHandler() {
   projectTitle.value = null;
 }
 
-function renderProjectList() {
-  const projectList = document.querySelector('.project-list');
-  while( projectList.firstChild ){
-    projectList.removeChild( projectList.firstChild );
-  }
-  for (let i = 0; i < list.length; i++) {
-    const projectContainer = document.createElement('div');
-    const li = document.createElement('li');
-    const btnDeleteProject = document.createElement('button');
-
-    projectContainer.className = 'project-container';
-    li.className = 'project';
-    btnDeleteProject.className = 'btn-delete-project';
-
-    li.textContent = list[i].title;
-    btnDeleteProject.textContent = 'X';
-    // create a unique id for each project using the date and time created with
-    // everything but numbers removed. 
-    btnDeleteProject.id = list[i].dateCreated.replace(/\D/g, '');
-    li.id = list[i].dateCreated.replace(/\D/g, '');
-    projectContainer.appendChild(li);
-    projectContainer.appendChild(btnDeleteProject);
-    projectList.appendChild(projectContainer);
-    if (li.textContent === 'Default Project') {
-      li.classList.add('active-project');
-    }
-  }
-  const projects = document.querySelectorAll('.project');
-  projects.forEach(project => {
-    project.addEventListener('click', (e) => {
-      list.forEach(project => {
-        if (project.title === e.target.textContent) {
-          const activeProject = document.querySelector('.active-project');
-          if (activeProject) {
-            activeProject.classList.remove('active-project');
-          }
-          e.target.classList.add('active-project');
-          renderDisplay(project);
-        }
-      })
-    }); 
-  })
-
-  const btnDeleteProjects = document.querySelectorAll('.btn-delete-project');
-  btnDeleteProjects.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      list.forEach(project => {
-        if (project.id === e.target.id) {
-          list.splice(list.indexOf(project), 1);
-          renderProjectList();
-          // When a project is delete the display shows the first project in list
-          renderDisplay(list[0]);
-        }
-      })
-
-    });
-  });
-
-}
 
 export function createTaskHandler() {
   taskForm();

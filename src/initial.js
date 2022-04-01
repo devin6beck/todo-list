@@ -1,5 +1,5 @@
 import { defaultProject } from "./logic";
-import renderDisplay from "./render-display";
+import { renderDisplay } from "./render";
 
 export default function initial() {
   const body = document.querySelector('body');
