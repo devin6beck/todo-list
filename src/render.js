@@ -68,7 +68,7 @@ export function renderProjectList() {
     projectContainer.appendChild(btnDeleteProject);
     projectList.appendChild(projectContainer);
     if (li.textContent === 'Default Project') {
-      li.classList.add('active-project');
+      makeActiveProject(li)
     }
   }
   const projects = document.querySelectorAll('.project');
@@ -76,11 +76,7 @@ export function renderProjectList() {
     project.addEventListener('click', (e) => {
       list.forEach(project => {
         if (project.title === e.target.textContent) {
-          const activeProject = document.querySelector('.active-project');
-          if (activeProject) {
-            activeProject.classList.remove('active-project');
-          }
-          e.target.classList.add('active-project');
+          makeActiveProject(e.target);
           renderDisplay(project);
         }
       })
@@ -104,3 +100,10 @@ export function renderProjectList() {
 
 }
 
+export function makeActiveProject(projectLi) {
+  const activeProject = document.querySelector('.active-project');
+  if (activeProject) {
+    activeProject.classList.remove('active-project');
+  }
+  projectLi.classList.add('active-project');
+}

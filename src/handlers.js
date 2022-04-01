@@ -1,5 +1,5 @@
 import Project from './project.js';
-import {renderDisplay, renderProjectList} from './render.js';
+import {renderDisplay, renderProjectList, makeActiveProject} from './render.js';
 import taskForm from './task-form';
 import Task from './task';
 
