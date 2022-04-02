@@ -1,4 +1,4 @@
-import { list, projectClickedHandler } from "./handlers";
+import { deleteProjectHandler, list, projectClickedHandler } from "./handlers";
 
 
 export function renderProjectList() {
@@ -30,24 +30,13 @@ export function renderProjectList() {
   }
   const projects = document.querySelectorAll('.project');
   projects.forEach(project => {
-    // if project is clicked, make it active
+    // if project is clicked, make it active and render the display.
     project.addEventListener('click', projectClickedHandler)
   })
   
   const btnDeleteProjects = document.querySelectorAll('.btn-delete-project');
   btnDeleteProjects.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      list.forEach(project => {
-        if (project.id === e.target.id) {
-          list.splice(list.indexOf(project), 1);
-          renderProjectList();
-          // When a project is delete the display shows the first project in list
-          list[0].active = true;
-          renderDisplay();
-        }
-      })
-      
-    });
+    btn.addEventListener('click', deleteProjectHandler)
   }); 
 }
 
