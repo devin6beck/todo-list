@@ -48,4 +48,15 @@ export function createTaskHandler() {
   })
 }
 
+export function projectClickedHandler(e) {
+  list.forEach(project => {
+    if (project.title === e.target.textContent) {
+      const activeProject = list.find(project => project.active === true);
+      activeProject.active = false;
+      makeActiveProject(project);
+      renderDisplay();
+    }
+  })
+}
+
 
