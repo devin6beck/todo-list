@@ -65,3 +65,9 @@ export function deleteProjectHandler(e) {
 }
 
 
+export function deleteTaskHandler(e) {
+  const activeProject = list.find(project => project.active === true);
+  const taskToDelete = activeProject.taskList.find(task => task.id === e.target.id);
+  activeProject.taskList.splice(activeProject.taskList.indexOf(taskToDelete), 1);
+  renderDisplay();
+}
