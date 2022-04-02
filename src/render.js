@@ -1,4 +1,4 @@
-import { deleteProjectHandler, deleteTaskHandler, list, projectClickedHandler } from "./handlers";
+import { deleteProjectHandler, deleteTaskHandler, list, projectClickedHandler, taskClickedHandler } from "./handlers";
 
 
 export function renderProjectList() {
@@ -46,7 +46,7 @@ export function renderDisplay() {
   const displayHeader = document.querySelector('.display-header');
   const taskHolder = document.createElement('ul');
   let activeProject = list.find(project => project.active === true);
-  console.log(`Here is the active project: ${activeProject.title}`);
+  console.log(`active project: ${activeProject.title}`);
   
   taskHolder.classList.add('task-holder');
   displayHeader.textContent = activeProject.title;
@@ -71,6 +71,12 @@ export function renderDisplay() {
   
   // Add the task holder to the display
   display.appendChild(taskHolder);
+
+  const taskItems = document.querySelectorAll('.task-item');
+
+  taskItems.forEach(task => {
+    task.addEventListener('click', taskClickedHandler)
+  });
   
   const btnDeleteTask = document.querySelectorAll('.btn-delete-task');
   btnDeleteTask.forEach(btn => {
