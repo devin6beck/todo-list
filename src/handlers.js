@@ -12,9 +12,12 @@ export function createProjectHandler() {
   if (projectTitle.value === null || projectTitle.value === '') {
     return;
   }
+  let activeProject = list.find(project => project.active === true);
+  activeProject.active = false;
+  newProject.active = true;
   list.push(newProject);
   renderProjectList();
-  renderDisplay(newProject);
+  renderDisplay();
   projectTitle.value = null;
 }
 
@@ -36,10 +39,10 @@ export function createTaskHandler() {
     const activeProject = document.querySelector('.active-project');
     task.date = taskDueDate.value;
     list.forEach(project => {
-      if (project.title === activeProject.textContent) {
+      if (project.active === true) {
         project.taskList.push(task);
         formContainer.remove();
-        renderDisplay(project);
+        renderDisplay();
       }
     })
   })

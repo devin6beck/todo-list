@@ -1,20 +1,22 @@
 import { list } from "./handlers";
 
-export function renderDisplay(project) {
+export function renderDisplay() {
   const display = document.querySelector('.display');
   const displayHeader = document.querySelector('.display-header');
   const taskHolder = document.createElement('ul');
+  let activeProject = list.find(project => project.active === true);
+  console.log(`Here is the active project: ${activeProject.title}`);
 
   taskHolder.classList.add('task-holder');
-  displayHeader.textContent = project.title;
+  displayHeader.textContent = activeProject.title;
 
   // clear the display
   while(display.firstChild) {
     display.removeChild(display.firstChild);
   }
 
-  // Add each task from the active project to the display
-  project.taskList.forEach(task => {
+  // Add each task from the active project to the taskHolder
+  activeProject.taskList.forEach(task => {
     const taskItem = document.createElement('li');
     const btnDeleteTask = document.createElement('button');
     taskItem.classList.add('task-item');
@@ -32,10 +34,10 @@ export function renderDisplay(project) {
   const btnDeleteTask = document.querySelectorAll('.btn-delete-task');
   btnDeleteTask.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      project.taskList.forEach(task => {
+      activeProject.taskList.forEach(task => {
         if (task.id === e.target.id) {
-          project.taskList.splice(project.taskList.indexOf(task), 1);
-          renderDisplay(project);
+          activeProject.taskList.splice(activeProject.taskList.indexOf(task), 1);
+          renderDisplay();
         }
       })
     });
@@ -73,11 +75,14 @@ export function renderProjectList() {
   }
   const projects = document.querySelectorAll('.project');
   projects.forEach(project => {
+    // if project is clicked, make it active
     project.addEventListener('click', (e) => {
       list.forEach(project => {
         if (project.title === e.target.textContent) {
-          makeActiveProject(e.target);
-          renderDisplay(project);
+          const activeProject = list.find(project => project.active === true);
+          activeProject.active = false;
+          makeActiveProject(project);
+          renderDisplay();
         }
       })
     }); 
@@ -91,7 +96,8 @@ export function renderProjectList() {
           list.splice(list.indexOf(project), 1);
           renderProjectList();
           // When a project is delete the display shows the first project in list
-          renderDisplay(list[0]);
+          list[0].active = true;
+          renderDisplay();
         }
       })
 
@@ -100,10 +106,10 @@ export function renderProjectList() {
 
 }
 
-export function makeActiveProject(projectLi) {
+export function makeActiveProject(project) {
   const activeProject = document.querySelector('.active-project');
   if (activeProject) {
     activeProject.classList.remove('active-project');
   }
-  projectLi.classList.add('active-project');
+  project.active = true;
 }

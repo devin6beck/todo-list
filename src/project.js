@@ -8,6 +8,7 @@ export default class Project {
     this.title = title;
     this.taskList = [defaultTask()]; // can remove this line for final project
     this.id = this.dateCreated.replace(/\D/g, '');
+    this.active = false;
   }
 }
 

@@ -11,9 +11,8 @@ export default function initial() {
   
   body.appendChild(createFooter());
 
-  const firstProject = defaultProject();
-  
-  renderDisplay(firstProject);
+  defaultProject()
+  renderDisplay();
 
 }
 
@@ -101,6 +100,7 @@ function createFooter() {
 function defaultProject() {
   const project = new Project('Default Project');
   list.push(project);
-  renderProjectList(project);
+  project.active = true;
+  renderProjectList();
   return project;
 }
