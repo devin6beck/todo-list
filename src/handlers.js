@@ -13,7 +13,10 @@ export function createProjectHandler() {
     return;
   }
   let activeProject = list.find(project => project.active === true);
-  activeProject.active = false;
+  if (activeProject) {
+
+    activeProject.active = false;
+  }
   newProject.active = true;
   list.push(newProject);
   renderProjectList();
@@ -23,6 +26,11 @@ export function createProjectHandler() {
 
 
 export function createTaskHandler() {
+  const activeProject = list.find(project => project.active === true);
+  if (!activeProject) {
+    alert('No active project');
+    return;
+  }
   taskForm();
   const taskTitle = document.querySelector('.task-title');
   const taskDueDate = document.querySelector('.due-date');
@@ -36,7 +44,6 @@ export function createTaskHandler() {
     }
     const task = new Task(taskTitle.value);
     const formContainer = document.querySelector('.form-container');
-    const activeProject = document.querySelector('.active-project');
     task.date = taskDueDate.value;
     list.forEach(project => {
       if (project.active === true) {
@@ -67,7 +74,9 @@ export function taskClickedHandler(e) {
 export function deleteProjectHandler(e) {
   const activeProject = list.find(project => project.id === e.target.id);
   list.splice(list.indexOf(activeProject), 1);
-  list[0].active = true;
+  if (list[0]) {
+    list[0].active = true;
+  }
   renderProjectList();
   renderDisplay();
 }

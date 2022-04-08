@@ -6,6 +6,7 @@ export function renderProjectList() {
   while( projectList.firstChild ){
     projectList.removeChild( projectList.firstChild );
   }
+  
   for (let i = 0; i < list.length; i++) {
     const projectContainer = document.createElement('div');
     const li = document.createElement('li');
@@ -45,10 +46,16 @@ export function renderDisplay() {
   const display = document.querySelector('.display');
   const displayHeader = document.querySelector('.display-header');
   const taskHolder = document.createElement('ul');
+  taskHolder.classList.add('task-holder');
+  console.log(`Here`);
   let activeProject = list.find(project => project.active === true);
+  if (!activeProject) {
+    displayHeader.textContent = 'No active project';
+    display.textContent = ` No tasks to display.`;
+    return
+  }
   console.log(`active project: ${activeProject.title}`);
   
-  taskHolder.classList.add('task-holder');
   displayHeader.textContent = activeProject.title;
   
   // clear the display
