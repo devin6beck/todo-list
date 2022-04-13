@@ -66,13 +66,16 @@ export function renderDisplay() {
   // Add each task from the active project to the taskHolder
   activeProject.taskList.forEach(task => {
     const taskItem = document.createElement('li');
+    const taskDetail = document.createElement('span');
     const btnDeleteTask = document.createElement('button');
     taskItem.classList.add('task-item');
     btnDeleteTask.classList.add('btn-delete-task');
     btnDeleteTask.id = task.id;
     btnDeleteTask.textContent = 'X';
-    taskItem.textContent = `${task.title} due ${task.date}`; 
+    taskItem.textContent = `${task.title}`; 
+    taskDetail.textContent = `due ${task.date}`;
     taskHolder.appendChild(taskItem);
+    taskHolder.appendChild(taskDetail);
     taskHolder.appendChild(btnDeleteTask);
   });
   

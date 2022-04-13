@@ -1,4 +1,4 @@
-export default function taskForm() {
+export default function taskForm(title, date) {
   const body = document.querySelector('body');
   const article = document.createElement('article');
   const form = document.createElement('form');
@@ -24,6 +24,11 @@ export default function taskForm() {
   h3.textContent = 'New Task';
   titleLabel.textContent = 'Title'
 
+
+  if (date) {
+    dateInput.value = date;
+  }
+
   form.appendChild(titleLabel);
   form.appendChild(titleInput);
 
@@ -33,4 +38,9 @@ export default function taskForm() {
   article.appendChild(h3);
   article.appendChild(form);
   body.appendChild(article);
+  if (title) {
+    console.log(`There is a title: ${title}`);
+    const title_field = document.querySelector('.task-title');
+    title_field.value = title;
+  }
 }

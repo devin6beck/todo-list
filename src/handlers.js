@@ -14,7 +14,6 @@ export function createProjectHandler() {
   }
   let activeProject = list.find(project => project.active === true);
   if (activeProject) {
-
     activeProject.active = false;
   }
   newProject.active = true;
@@ -65,6 +64,11 @@ export function projectClickedHandler(e) {
 
 export function taskClickedHandler(e) {
   console.log(`Create a function that brings up the task form when a task is clicked.`);
+  const activeProject = list.find(project => project.active === true);
+  // code below is not working due to the textContent not being the same as the title
+  const task = activeProject.taskList.find(task => task.title === e.target.textContent);
+  console.log(`task: ${task.title}`);
+  taskForm(task.title);
   // const activeProject = list.find(project => project.active === true);
   // const task = activeProject.taskList.find(task => task.title === e.target.textContent);
   // task.completed = !task.completed;
