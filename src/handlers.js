@@ -25,13 +25,20 @@ export function createProjectHandler() {
 }
 
 
-export function createTaskHandler() {
+export function createTaskHandler(e) {
   const activeProject = list.find(project => project.active === true);
+
   if (!activeProject) {
     alert('No active project');
     return;
   }
-  taskForm();
+
+  const task = activeProject.taskList.find(task => task.id === e.target.dataset.taskId);
+  if (e) {
+    taskForm(task);
+  } else {
+    taskForm();
+  }
   const taskTitle = document.querySelector('.task-title');
   const taskDueDate = document.querySelector('.due-date');
   const btnSubmit = document.querySelector('.submit-task');
@@ -47,7 +54,19 @@ export function createTaskHandler() {
     task.date = taskDueDate.value;
     list.forEach(project => {
       if (project.active === true) {
+        let doNotAdd = false
+
+        project.taskList.forEach(task => {
+          if (task.title === taskTitle.value && task.date === taskDueDate.value) {
+            alert('Task with same title and due date already exists');
+            doNotAdd = true;
+            return;
+          } 
+        });
+      
+        if (!doNotAdd) {
         project.taskList.push(task);
+        }
         formContainer.remove();
         renderDisplay();
       }
@@ -63,13 +82,13 @@ export function projectClickedHandler(e) {
   renderDisplay();
 }
 
-export function taskClickedHandler(e) {
-  console.log(`Create a function that brings up the task form when a task is clicked.`);
-  const activeProject = list.find(project => project.active === true);
-  const task = activeProject.taskList.find(task => task.id === e.target.dataset.taskId);
-  taskForm(task);
-  renderDisplay();
-}
+// export function taskClickedHandler(e) {
+//   console.log(`Create a function that brings up the task form when a task is clicked.`);
+//   const activeProject = list.find(project => project.active === true);
+//   const task = activeProject.taskList.find(task => task.id === e.target.dataset.taskId);
+//   taskForm(task);
+//   renderDisplay();
+// }
 
 export function deleteProjectHandler(e) {
   const activeProject = list.find(project => project.id === e.target.id);
