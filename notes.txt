@@ -9,3 +9,5 @@ When all projects are deleted it causes an error.
 
 create a function to combine the project delete button and task delete button
 functionality 
+
+When taskForm is present the other buttons should be disabled. 
