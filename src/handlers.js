@@ -93,6 +93,7 @@ export function taskCreateOrClickedHandler(e) {
       task.date = taskDueDate.value;
     }
     formContainer.remove();
+    save();
     renderDisplay();
     buttonsEnabled();
   })
