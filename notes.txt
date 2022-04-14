@@ -9,3 +9,4 @@ functionality
 use local storage to save
  --- need to save (and maybe render) when a new task is created
  --- need to remember what project was selected last. 
+ --- when a project is clicked and another is deleted it is not saving the active project to render

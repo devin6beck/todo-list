@@ -103,6 +103,7 @@ export function projectClickedHandler(e) {
   const project = list.find(project => project.title === e.target.textContent);
   disableCurrentActiveProject();
   makeActiveProject(project);
+  save()
   renderDisplay();
 }
 
@@ -116,9 +117,13 @@ export function projectClickedHandler(e) {
 
 export function deleteProjectHandler(e) {
   const projectToDelete = list.find(project => project.id === e.target.id);
+  const activeProject = list.find(project => project.active === true);
   list.splice(list.indexOf(projectToDelete), 1);
-  if (list[0]) {
-    list[0].active = true;
+  // if the project to delete is the active project, make the first project in the list active
+  if (activeProject === projectToDelete) {
+    if (list[0]) {
+      list[0].active = true;
+    }
   }
   saveAndRender();
   renderDisplay();

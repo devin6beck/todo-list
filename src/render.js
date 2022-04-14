@@ -25,9 +25,9 @@ export function renderProjectList() {
     projectContainer.appendChild(li);
     projectContainer.appendChild(btnDeleteProject);
     projectList.appendChild(projectContainer);
-    if (li.textContent === 'Default Project') {
+  /*   if (li.textContent === 'Default Project') {
       makeActiveProject(li)
-    }
+    } */
   }
   const projects = document.querySelectorAll('.project');
   projects.forEach(project => {
