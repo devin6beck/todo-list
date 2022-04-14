@@ -68,6 +68,7 @@ export function renderDisplay() {
     const taskItem = document.createElement('li');
     const btnDeleteTask = document.createElement('button');
     taskItem.classList.add('task-item');
+    taskItem.setAttribute('data-task-id', task.id)
     btnDeleteTask.classList.add('btn-delete-task');
     btnDeleteTask.id = task.id;
     btnDeleteTask.textContent = 'X';

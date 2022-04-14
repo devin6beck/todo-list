@@ -1,4 +1,4 @@
-export default function taskForm() {
+export default function taskForm(task) {
   const body = document.querySelector('body');
   const article = document.createElement('article');
   const form = document.createElement('form');
@@ -33,4 +33,9 @@ export default function taskForm() {
   article.appendChild(h3);
   article.appendChild(form);
   body.appendChild(article);
+
+  if (task) {
+    titleInput.value = task.title;
+    dateInput.value = task.date;
+  }
 }

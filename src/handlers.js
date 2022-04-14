@@ -65,9 +65,9 @@ export function projectClickedHandler(e) {
 
 export function taskClickedHandler(e) {
   console.log(`Create a function that brings up the task form when a task is clicked.`);
-  // const activeProject = list.find(project => project.active === true);
-  // const task = activeProject.taskList.find(task => task.title === e.target.textContent);
-  // task.completed = !task.completed;
+  const activeProject = list.find(project => project.active === true);
+  const task = activeProject.taskList.find(task => task.id === e.target.dataset.taskId);
+  taskForm(task);
   renderDisplay();
 }
 
