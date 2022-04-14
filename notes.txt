@@ -5,3 +5,5 @@ add more detail when the task is displays... due date, date created, notes
 
 create a function to combine the project delete button and task delete button
 functionality 
+
+use local storage to save
