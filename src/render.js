@@ -53,13 +53,17 @@ export function renderDisplay() {
     display.textContent = ` No tasks to display.`;
     return
   }
-  console.log(`active project: ${activeProject.title}`);
-  
+
   displayHeader.textContent = activeProject.title;
   
   // clear the display
   while(display.firstChild) {
     display.removeChild(display.firstChild);
+  }
+
+  if (activeProject.taskList.length === 0) {
+    display.textContent = ` No tasks to display.`;
+    return
   }
   
   // Add each task from the active project to the taskHolder
