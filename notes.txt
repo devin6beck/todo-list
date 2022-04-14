@@ -1,11 +1,4 @@
-create function to bring up task form when a task is clicked so that it can
-be edited
-
 add more detail when the task is displays... due date, date created, notes
-
-When all projects are deleted it causes an error.
---Have render display go blank if all projects are deleted ||
---Make it so a default project can not be deleted so it always have something to display
 
 create a function to combine the project delete button and task delete button
 functionality 
