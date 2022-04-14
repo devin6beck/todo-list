@@ -5,7 +5,7 @@ import taskForm from './task-form';
 import Task from './task';
 
 const LOCAL_STORAGE_LIST_KEY = 'project.lists';
-export let list = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
+export let list = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [defaultProject()];
 
 
 export function createProjectHandler() {
@@ -115,12 +115,12 @@ export function projectClickedHandler(e) {
 // }
 
 export function deleteProjectHandler(e) {
-  const activeProject = list.find(project => project.id === e.target.id);
-  list.splice(list.indexOf(activeProject), 1);
+  const projectToDelete = list.find(project => project.id === e.target.id);
+  list.splice(list.indexOf(projectToDelete), 1);
   if (list[0]) {
     list[0].active = true;
   }
-  renderProjectList();
+  saveAndRender();
   renderDisplay();
 }
 
@@ -153,4 +153,10 @@ function saveAndRender() {
 
 function save() {
   localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(list));
+}
+
+function defaultProject() {
+  const project = new Project('Default Project');
+  project.active = true;
+  return project;
 }

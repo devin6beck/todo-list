@@ -7,3 +7,5 @@ create a function to combine the project delete button and task delete button
 functionality 
 
 use local storage to save
+ --- need to save (and maybe render) when a new task is created
+ --- need to remember what project was selected last. 

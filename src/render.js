@@ -106,5 +106,7 @@ export function makeActiveProject(project) {
 
 export function disableCurrentActiveProject() {
   const activeProject = list.find(project => project.active === true);
-  activeProject.active = false;
+  if (activeProject) {
+    activeProject.active = false;
+  }
 }

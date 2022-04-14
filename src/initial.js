@@ -11,7 +11,8 @@ export default function initial() {
   
   body.appendChild(createFooter());
 
-  defaultProject()
+  // defaultProject()
+  renderProjectList();
   renderDisplay();
 
 }
