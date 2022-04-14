@@ -26,6 +26,10 @@ export function createProjectHandler() {
 
 // used when createTask button is clicked and when a task li is clicked.
 export function taskCreateOrClickedHandler(e) {
+  let buttons = document.querySelectorAll('button');
+  buttons.forEach(button => {
+    button.disabled = true;
+  });
   const activeProject = list.find(project => project.active === true);
 
   if (!activeProject) {
@@ -82,6 +86,9 @@ export function taskCreateOrClickedHandler(e) {
     }
     formContainer.remove();
     renderDisplay();
+    buttons.forEach(button => {
+      button.removeAttribute('disabled');
+    });
   })
 
 }
