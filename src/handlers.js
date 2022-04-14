@@ -4,7 +4,8 @@ import {renderDisplay, renderProjectList, makeActiveProject, disableCurrentActiv
 import taskForm from './task-form';
 import Task from './task';
 
-export let list = [];
+const LOCAL_STORAGE_LIST_KEY = 'project.lists';
+export let list = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
 
 
 export function createProjectHandler() {
@@ -27,7 +28,7 @@ export function createProjectHandler() {
     disableCurrentActiveProject();
     makeActiveProject(project);
     renderDisplay();
-    renderProjectList();
+    saveAndRender();
     buttonsEnabled();
     const article = document.querySelector('article');
     article.remove();
@@ -143,4 +144,13 @@ function buttonsEnabled() {
   buttons.forEach(button => {
     button.removeAttribute('disabled');
   });
+}
+
+function saveAndRender() {
+  save();
+  renderProjectList();
+}
+
+function save() {
+  localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(list));
 }
