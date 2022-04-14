@@ -1,4 +1,4 @@
-import { deleteProjectHandler, deleteTaskHandler, list, projectClickedHandler, taskClickedHandler, taskCreateOrClickedHandler } from "./handlers";
+import { deleteProjectHandler, deleteTaskHandler, list, projectClickedHandler, taskClickedHandler, createTaskHandler } from "./handlers";
 
 
 export function renderProjectList() {
@@ -47,7 +47,6 @@ export function renderDisplay() {
   const displayHeader = document.querySelector('.display-header');
   const taskHolder = document.createElement('ul');
   taskHolder.classList.add('task-holder');
-  console.log(`Here`);
   let activeProject = list.find(project => project.active === true);
   if (!activeProject) {
     displayHeader.textContent = 'No active project';
@@ -83,7 +82,7 @@ export function renderDisplay() {
   const taskItems = document.querySelectorAll('.task-item');
 
   taskItems.forEach(task => {
-    task.addEventListener('click', taskCreateOrClickedHandler)
+    task.addEventListener('click', createTaskHandler)
   });
   
   const btnDeleteTask = document.querySelectorAll('.btn-delete-task');
@@ -94,9 +93,14 @@ export function renderDisplay() {
 
 
 export function makeActiveProject(project) {
-  const activeProject = document.querySelector('.active-project');
-  if (activeProject) {
-    activeProject.classList.remove('active-project');
-  }
+  // const activeProject = document.querySelector('.active-project');
+  // if (activeProject) {
+  //   activeProject.classList.remove('active-project');
+  // }
   project.active = true;
+}
+
+export function disableCurrentActiveProject() {
+  const activeProject = list.find(project => project.active === true);
+  activeProject.active = false;
 }

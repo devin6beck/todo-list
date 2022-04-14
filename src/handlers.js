@@ -1,6 +1,6 @@
 import Project from './project.js';
 import projectForm from './project-form.js';
-import {renderDisplay, renderProjectList, makeActiveProject} from './render.js';
+import {renderDisplay, renderProjectList, makeActiveProject, disableCurrentActiveProject} from './render.js';
 import taskForm from './task-form';
 import Task from './task';
 
@@ -24,8 +24,10 @@ export function createProjectHandler() {
     } 
     const project = new Project(title);
     list.push(project);
-    renderDisplay(list);
-    renderProjectList(list);
+    disableCurrentActiveProject();
+    makeActiveProject(project);
+    renderDisplay();
+    renderProjectList();
     buttonsEnabled();
     const article = document.querySelector('article');
     article.remove();
@@ -98,8 +100,7 @@ export function taskCreateOrClickedHandler(e) {
 
 export function projectClickedHandler(e) {
   const project = list.find(project => project.title === e.target.textContent);
-  const activeProject = list.find(project => project.active === true);
-  activeProject.active = false;
+  disableCurrentActiveProject();
   makeActiveProject(project);
   renderDisplay();
 }
