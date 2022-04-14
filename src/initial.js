@@ -56,23 +56,15 @@ function createSidebar() {
   const aside = document.createElement('aside');
   const sideList = document.createElement('ul');
   const btnNewList = document.createElement('button');
-  const inputNewList = document.createElement('input');
   const divNewList = document.createElement('div');
   
   aside.classList.add('sidebar');
   sideList.classList.add('project-list');
   btnNewList.classList.add('btn-new-project');
-  divNewList.classList.add('new-project-input-container');
 
   btnNewList.textContent = '+';
-  
-  // const testX = document.createElement('li');
-  // testX.textContent = "test";
-
-  // aside.appendChild(testX);
-  divNewList.appendChild(btnNewList);
   aside.appendChild(sideList)
-  aside.appendChild(divNewList);
+  aside.appendChild(btnNewList);
   
 
   return aside

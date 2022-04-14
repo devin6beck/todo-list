@@ -1,9 +1,6 @@
 
 CSS to make it looks better
 
-Remove the way a project is created right now and make it more lie Create task
-button. It should bring up an input form for the title of the project
-
 add more detail when the task is displays... due date, date created, notes
 
 create a function to combine the project delete button and task delete button

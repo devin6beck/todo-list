@@ -64,8 +64,7 @@ body {
   word-wrap: break-word;
 }
 
-.project-container,
-.new-project-input-container {
+.project-container{
   display: flex;
   justify-content: space-between;
   margin-right: 10px;
@@ -84,6 +83,7 @@ button {
 .btn-new-project {
   font-size: 25px;
   color: green;
+  align-self: center;
 }
 
 /* .btn-task {
