@@ -81,6 +81,11 @@ button {
   color: red;
 }
 
+.btn-new-project {
+  font-size: 25px;
+  color: green;
+}
+
 /* .btn-task {
   position: absolute;
   right: 4%;

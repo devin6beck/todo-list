@@ -62,7 +62,6 @@ function createSidebar() {
   aside.classList.add('sidebar');
   sideList.classList.add('project-list');
   btnNewList.classList.add('btn-new-project');
-  inputNewList.classList.add('project-title');
   divNewList.classList.add('new-project-input-container');
 
   btnNewList.textContent = '+';
@@ -71,7 +70,6 @@ function createSidebar() {
   // testX.textContent = "test";
 
   // aside.appendChild(testX);
-  divNewList.appendChild(inputNewList);
   divNewList.appendChild(btnNewList);
   aside.appendChild(sideList)
   aside.appendChild(divNewList);

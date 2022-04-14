@@ -1,4 +1,5 @@
 import Project from './project.js';
+import projectForm from './project-form.js';
 import {renderDisplay, renderProjectList, makeActiveProject} from './render.js';
 import taskForm from './task-form';
 import Task from './task';
@@ -7,29 +8,33 @@ export let list = [];
 
 
 export function createProjectHandler() {
-  const projectTitle = document.querySelector('.project-title');
-  const newProject = new Project(projectTitle.value);
-  if (projectTitle.value === null || projectTitle.value === '') {
-    return;
-  }
-  let activeProject = list.find(project => project.active === true);
-  if (activeProject) {
-
-    activeProject.active = false;
-  }
-  newProject.active = true;
-  list.push(newProject);
-  renderProjectList();
-  renderDisplay();
-  projectTitle.value = null;
+  buttonsDisabled()
+  projectForm();
+  const btnSubmit = document.querySelector('.submit-project');
+  btnSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const title = document.querySelector('.project-title').value;
+    if (title === '' || title === null) {
+      alert('Please enter a title for your project');
+      return
+      }
+    if (list.find(project => project.title === title)) {
+      alert('Project already exists');
+      return
+    } 
+    const project = new Project(title);
+    list.push(project);
+    renderDisplay(list);
+    renderProjectList(list);
+    buttonsEnabled();
+    const article = document.querySelector('article');
+    article.remove();
+  });
 }
 
 // used when createTask button is clicked and when a task li is clicked.
 export function taskCreateOrClickedHandler(e) {
-  let buttons = document.querySelectorAll('button');
-  buttons.forEach(button => {
-    button.disabled = true;
-  });
+  buttonsDisabled()
   const activeProject = list.find(project => project.active === true);
 
   if (!activeProject) {
@@ -86,9 +91,7 @@ export function taskCreateOrClickedHandler(e) {
     }
     formContainer.remove();
     renderDisplay();
-    buttons.forEach(button => {
-      button.removeAttribute('disabled');
-    });
+    buttonsEnabled();
   })
 
 }
@@ -125,4 +128,18 @@ export function deleteTaskHandler(e) {
   const taskToDelete = activeProject.taskList.find(task => task.id === e.target.id);
   activeProject.taskList.splice(activeProject.taskList.indexOf(taskToDelete), 1);
   renderDisplay();
+}
+
+function buttonsDisabled() {
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach(button => {
+    button.disabled = true;
+  });
+}
+
+function buttonsEnabled() {
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach(button => {
+    button.removeAttribute('disabled');
+  });
 }
