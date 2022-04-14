@@ -1,4 +1,4 @@
-import { deleteProjectHandler, deleteTaskHandler, list, projectClickedHandler, taskClickedHandler, createTaskHandler } from "./handlers";
+import { deleteProjectHandler, deleteTaskHandler, list, projectClickedHandler, taskClickedHandler, taskCreateOrClickedHandler } from "./handlers";
 
 
 export function renderProjectList() {
@@ -83,7 +83,7 @@ export function renderDisplay() {
   const taskItems = document.querySelectorAll('.task-item');
 
   taskItems.forEach(task => {
-    task.addEventListener('click', createTaskHandler)
+    task.addEventListener('click', taskCreateOrClickedHandler)
   });
   
   const btnDeleteTask = document.querySelectorAll('.btn-delete-task');

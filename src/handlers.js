@@ -25,7 +25,7 @@ export function createProjectHandler() {
 }
 
 // used when createTask button is clicked and when a task li is clicked.
-export function createTaskHandler(e) {
+export function taskCreateOrClickedHandler(e) {
   const activeProject = list.find(project => project.active === true);
 
   if (!activeProject) {

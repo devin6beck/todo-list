@@ -1,14 +1,14 @@
 import _ from 'lodash';
 import './style.css';
 import initial from './initial.js';
-import { createProjectHandler, createTaskHandler } from './handlers';
+import { createProjectHandler, taskCreateOrClickedHandler } from './handlers';
 
 initial();
 
 const buttonCreateProject = document.querySelector('.btn-new-project');
 buttonCreateProject.addEventListener('click', createProjectHandler);
 const buttonCreateTask = document.querySelector('.btn-task');
-buttonCreateTask.addEventListener('click', createTaskHandler);
+buttonCreateTask.addEventListener('click', taskCreateOrClickedHandler);
 // test
 
 
