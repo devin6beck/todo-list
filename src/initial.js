@@ -1,6 +1,6 @@
 import { renderDisplay, renderProjectList } from "./render";
 import Project from "./project";
-import { list } from "./handlers";
+import { list, displayHeaderEventHandler } from "./handlers";
 
 export default function initial() {
   const body = document.querySelector('body');
@@ -44,6 +44,18 @@ function createCurrentProjectPage() {
   taskBtn.classList.add('btn-task');
 
   taskBtn.textContent = 'Create Task';
+
+  displayHeader.contentEditable = true;
+
+  ['blur', 'keypress'].forEach(event => {
+    displayHeader.addEventListener(event, function(e) {
+      if (event === 'keypress' && e.key !== 'Enter') {
+        return
+      }
+      e.preventDefault()
+      displayHeaderEventHandler(e);
+    });
+  });
 
   optionsContainer.appendChild(taskBtn);
   defaultPage.appendChild(displayHeader);

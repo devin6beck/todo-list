@@ -27,7 +27,6 @@ export function createProjectHandler() {
     list.push(project);
     disableCurrentActiveProject();
     makeActiveProject(project);
-    renderDisplay();
     saveAndRender();
     buttonsEnabled();
     const article = document.querySelector('article');
@@ -79,8 +78,7 @@ export function taskCreateOrClickedHandler(e) {
               return;
             } 
           });
-      
-        
+
           if (!doNotAdd) {
           project.taskList.push(task);
           }
@@ -93,28 +91,17 @@ export function taskCreateOrClickedHandler(e) {
       task.date = taskDueDate.value;
     }
     formContainer.remove();
-    save();
-    renderDisplay();
+    saveAndRender();
     buttonsEnabled();
   })
-
 }
 
 export function projectClickedHandler(e) {
   const project = list.find(project => project.title === e.target.textContent);
   disableCurrentActiveProject();
   makeActiveProject(project);
-  save()
-  renderDisplay();
+  saveAndRender();
 }
-
-// export function taskClickedHandler(e) {
-//   console.log(`Create a function that brings up the task form when a task is clicked.`);
-//   const activeProject = list.find(project => project.active === true);
-//   const task = activeProject.taskList.find(task => task.id === e.target.dataset.taskId);
-//   taskForm(task);
-//   renderDisplay();
-// }
 
 export function deleteProjectHandler(e) {
   const projectToDelete = list.find(project => project.id === e.target.id);
@@ -127,7 +114,6 @@ export function deleteProjectHandler(e) {
     }
   }
   saveAndRender();
-  renderDisplay();
 }
 
 
@@ -135,7 +121,14 @@ export function deleteTaskHandler(e) {
   const activeProject = list.find(project => project.active === true);
   const taskToDelete = activeProject.taskList.find(task => task.id === e.target.id);
   activeProject.taskList.splice(activeProject.taskList.indexOf(taskToDelete), 1);
-  renderDisplay();
+  saveAndRender();
+}
+
+export function displayHeaderEventHandler(e) {
+  const activeProject = list.find(project => project.active === true);
+  const displayHeader = document.querySelector('.display-header');
+  activeProject.title = displayHeader.textContent;
+  saveAndRender();
 }
 
 function buttonsDisabled() {
@@ -155,7 +148,9 @@ function buttonsEnabled() {
 function saveAndRender() {
   save();
   renderProjectList();
+  renderDisplay();
 }
+
 
 function save() {
   localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(list));
