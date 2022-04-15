@@ -6,7 +6,4 @@ add more detail when the task is displays... due date, date created, notes
 create a function to combine the project delete button and task delete button
 functionality 
 
-use local storage to save
- --- need to save (and maybe render) when a new task is created
- --- need to remember what project was selected last. 
- --- when a project is clicked and another is deleted it is not saving the active project to render
+when a project is clicked you should be able to change name.
