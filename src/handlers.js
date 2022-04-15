@@ -56,7 +56,7 @@ export function taskCreateOrClickedHandler(e) {
   btnSubmit.addEventListener('click', (e) => {
     e.preventDefault();
     if (taskTitle.value === null || taskTitle.value === ''){
-      alert('Please enter a title and due date');
+      alert('Please enter a title for the task');
       return;
     }
     const formContainer = document.querySelector('.form-container');
