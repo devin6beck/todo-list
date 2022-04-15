@@ -1,4 +1,4 @@
-export default function projectForm() {
+export default function projectForm(project) {
   const body = document.querySelector('body');
   const article = document.createElement('article');
   const form = document.createElement('form');
@@ -29,4 +29,7 @@ export default function projectForm() {
   article.appendChild(h3);
   article.appendChild(form);
   body.appendChild(article);
+  if (project) {
+    titleInput.value = project.title;
+  }
 }

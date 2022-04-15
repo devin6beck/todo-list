@@ -1,4 +1,4 @@
-import { deleteProjectHandler, deleteTaskHandler, list, projectClickedHandler, taskClickedHandler, taskCreateOrClickedHandler } from "./handlers";
+import { deleteProjectHandler, deleteTaskHandler, list, projectClickedHandler, projectDoubleClickedHandler, taskCreateOrClickedHandler } from "./handlers";
 
 
 export function renderProjectList() {
@@ -33,6 +33,7 @@ export function renderProjectList() {
   projects.forEach(project => {
     // if project is clicked, make it active and render the display.
     project.addEventListener('click', projectClickedHandler)
+    project.addEventListener('dblclick', projectDoubleClickedHandler)
   })
   
   const btnDeleteProjects = document.querySelectorAll('.btn-delete-project');

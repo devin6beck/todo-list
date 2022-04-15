@@ -96,6 +96,35 @@ export function taskCreateOrClickedHandler(e) {
   })
 }
 
+export function projectDoubleClickedHandler(e) {
+  const project = list.find(project => project.title === e.target.textContent);
+  projectForm(project);
+  buttonsDisabled()
+  const btnSubmit = document.querySelector('.submit-project');
+  btnSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const title = document.querySelector('.project-title').value;
+    if (title === '' || title === null) {
+      alert('Please enter a title for your project');
+      return
+      }
+    // if (list.find(project => project.title === title)) {
+    //   alert('Project already exists');
+    //   return
+    // } 
+    // const project = new Project(title);
+    // list.push(project);
+    project.title = title;
+    disableCurrentActiveProject();
+    makeActiveProject(project);
+
+    saveAndRender();
+    buttonsEnabled();
+    const article = document.querySelector('article');
+    article.remove();
+  });
+}
+
 export function projectClickedHandler(e) {
   const project = list.find(project => project.title === e.target.textContent);
   disableCurrentActiveProject();
