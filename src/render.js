@@ -76,7 +76,12 @@ export function renderDisplay() {
     btnDeleteTask.classList.add('btn-delete-task');
     btnDeleteTask.id = task.id;
     btnDeleteTask.textContent = 'X';
-    taskItem.textContent = `${task.title} due ${task.date}`; 
+    console.log(`task.date = ${task.date}`)
+    if (task.date !== "") {
+      taskItem.textContent = `${task.title} - due ${task.date}`;
+    } else {
+      taskItem.textContent = task.title; 
+    }
     taskHolder.appendChild(taskItem);
     taskHolder.appendChild(btnDeleteTask);
   });

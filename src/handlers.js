@@ -55,8 +55,7 @@ export function taskCreateOrClickedHandler(e) {
 
   btnSubmit.addEventListener('click', (e) => {
     e.preventDefault();
-    if (taskTitle.value === null || taskTitle.value === '' || 
-      taskDueDate.value === null || taskDueDate.value === '') {
+    if (taskTitle.value === null || taskTitle.value === ''){
       alert('Please enter a title and due date');
       return;
     }
@@ -66,7 +65,11 @@ export function taskCreateOrClickedHandler(e) {
     if (!taskClicked) {
       // if the Create Task button is clicked, create a new task
       task = new Task(taskTitle.value);
-      task.date = taskDueDate.value;
+      if (taskDueDate.value === null || taskDueDate.value === '') {
+        task.date = '';
+      } else {
+        task.date = taskDueDate.value;
+      }
       list.forEach(project => {
         if (project.active === true) {
           let doNotAdd = false
