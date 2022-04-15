@@ -7,7 +7,7 @@ export default function initial() {
 
   body.appendChild(createHeader());
   body.appendChild(createSidebar());
-  body.appendChild(createCurrentPage());
+  body.appendChild(createCurrentProjectPage());
   
   body.appendChild(createFooter());
 
@@ -29,7 +29,7 @@ function createHeader() {
   return header;
 }
 
-function createCurrentPage() {
+function createCurrentProjectPage() {
   
   const defaultPage = document.createElement('section');
   const displayHeader = document.createElement('h2');
