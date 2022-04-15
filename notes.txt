@@ -6,4 +6,4 @@ add more detail when the task is displays... due date, date created, notes
 create a function to combine the project delete button and task delete button
 functionality 
 
-when a project is clicked you should be able to change name.
+when the project title in the display is clicked it should allow edit of title
