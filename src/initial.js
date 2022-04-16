@@ -1,4 +1,4 @@
-import { renderTaskListDisplay, renderProjectList } from "./render";
+import { renderActiveProject, renderProjectList } from "./render";
 import Project from "./project";
 import { projectsArray, displayHeaderEventHandler } from "./handlers";
 
@@ -13,7 +13,7 @@ export default function initial() {
 
   // defaultProject()
   renderProjectList();
-  renderTaskListDisplay();
+  renderActiveProject();
 
 }
 
@@ -33,13 +33,13 @@ function createCurrentProjectPage() {
   
   const defaultPage = document.createElement('section');
   const displayHeader = document.createElement('h2');
-  const display = document.createElement('div');
+  const activeProjectDisplayDivElement = document.createElement('div');
   const optionsContainer = document.createElement('div');
   const taskBtn = document.createElement('button');
 
   defaultPage.classList.add('current-page');
   displayHeader.classList.add('display-header');
-  display.classList.add('display');
+  activeProjectDisplayDivElement.classList.add('display');
   optionsContainer.classList.add('options-container');
   taskBtn.classList.add('btn-task');
 
@@ -59,7 +59,7 @@ function createCurrentProjectPage() {
 
   optionsContainer.appendChild(taskBtn);
   defaultPage.appendChild(displayHeader);
-  defaultPage.appendChild(display);
+  defaultPage.appendChild(activeProjectDisplayDivElement);
   defaultPage.appendChild(optionsContainer);
 
   return defaultPage

@@ -10,13 +10,12 @@ export function renderProjectList() {
 }
 
 
+// if a project is clicked, make it active and render the display.
+// if a project is double clicked, make it active and display project form.
 function addEventListenersToProjects() {
-  // if project is clicked, make it active and render the display.
-  // if project is double clicked, make it active and display project form.
   const projects = document.querySelectorAll('.project');
   projects.forEach(project => {
-    project.addEventListener('click', projectClickedHandler)
-
+    project.addEventListener('click', projectClickedHandler);
     project.addEventListener('dblclick', projectDoubleClickedHandler)
   })
 }
@@ -60,32 +59,67 @@ function createLiForEachProject(projectList) {
     }
 }
 
-export function renderTaskListDisplay() {
+export function renderActiveProject() {
   const displayDivElement = document.querySelector('.display');
   const displayH2Element = document.querySelector('.display-header');
-  const taskListElement = document.createElement('ul');
-  taskListElement.classList.add('task-list');
-  let activeProject = projectsArray.find(project => project.active === true);
-  if (!activeProject) {
+
+  // if there is no active project, display a message informing the user.
+  if (!getActiveProject()) {
     displayH2Element.textContent = 'No active project';
     displayDivElement.textContent = ` No tasks to display.`;
     return
   }
 
-  displayH2Element.textContent = activeProject.title;
+  // set the display header to the active project title
+  displayH2Element.textContent = getActiveProject().title;
   
-  // clear the display
-  while(displayDivElement.firstChild) {
-    displayDivElement.removeChild(displayDivElement.firstChild);
-  }
+  // clear the task list display
+  removeElementsChildren(displayDivElement);
 
-  if (activeProject.taskList.length === 0) {
+  createTaskListElement(displayDivElement);
+
+
+  if (getActiveProject().taskList.length === 0) {
     displayDivElement.textContent = ` No tasks to display.`;
     return
   }
+
+  createLiForEachTask()
+
+  const taskItems = document.querySelectorAll('.task-item');
+
+  taskItems.forEach(task => {
+    task.addEventListener('click', taskCreateOrClickedHandler)
+  });
   
-  // Add each task from the active project to the taskHolder
-  activeProject.taskList.forEach(task => {
+  const btnDeleteTask = document.querySelectorAll('.btn-delete-task');
+  btnDeleteTask.forEach(btn => {
+    btn.addEventListener('click', deleteTaskHandler);
+  });
+}
+
+function createTaskListElement(displayDivElement) {
+  const taskListElement = document.createElement('ul');
+  taskListElement.classList.add('task-list');
+  // Add the task holder to the display
+  displayDivElement.appendChild(taskListElement);
+}
+
+function getTaskListElement() {
+  return document.querySelector('.task-list');
+}
+
+function removeElementsChildren(element) {
+  while(element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
+
+function createLiForEachTask() {
+  const taskListElement = getTaskListElement();
+  console.log(`Here is the taskListElement: ${taskListElement}`)
+  // loop through list of tasks and create a new list item for each task
+  getActiveProject().taskList.forEach(task => {
     const taskItem = document.createElement('li');
     const btnDeleteTask = document.createElement('button');
     taskItem.classList.add('task-item');
@@ -102,34 +136,17 @@ export function renderTaskListDisplay() {
     taskListElement.appendChild(taskItem);
     taskListElement.appendChild(btnDeleteTask);
   });
-  
-  // Add the task holder to the display
-  displayDivElement.appendChild(taskListElement);
-
-  const taskItems = document.querySelectorAll('.task-item');
-
-  taskItems.forEach(task => {
-    task.addEventListener('click', taskCreateOrClickedHandler)
-  });
-  
-  const btnDeleteTask = document.querySelectorAll('.btn-delete-task');
-  btnDeleteTask.forEach(btn => {
-    btn.addEventListener('click', deleteTaskHandler);
-  });
 }
 
 
-export function makeActiveProject(project) {
-  // const activeProject = document.querySelector('.active-project');
-  // if (activeProject) {
-  //   activeProject.classList.remove('active-project');
-  // }
+
+export function makeProjectActive(project) {
+  if (getActiveProject()) {
+    getActiveProject().active = false
+  }
   project.active = true;
 }
 
-export function disableCurrentActiveProject() {
-  const activeProject = projectsArray.find(project => project.active === true);
-  if (activeProject) {
-    activeProject.active = false;
-  }
+function getActiveProject() {
+  return projectsArray.find(project => project.active === true);
 }

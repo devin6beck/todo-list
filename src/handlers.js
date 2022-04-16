@@ -1,6 +1,6 @@
 import Project from './project.js';
 import projectForm from './project-form.js';
-import {renderTaskListDisplay, renderProjectList, makeActiveProject, disableCurrentActiveProject} from './render.js';
+import {renderActiveProject, renderProjectList, makeProjectActive, disableCurrentActiveProject} from './render.js';
 import taskForm from './task-form';
 import Task from './task';
 
@@ -25,8 +25,7 @@ export function createProjectHandler() {
     } 
     const project = new Project(title);
     projectsArray.push(project);
-    disableCurrentActiveProject();
-    makeActiveProject(project);
+    makeProjectActive(project);
     saveAndRender();
     buttonsEnabled();
     const article = document.querySelector('article');
@@ -118,8 +117,7 @@ export function projectDoubleClickedHandler(e) {
     // const project = new Project(title);
     // list.push(project);
     project.title = title;
-    disableCurrentActiveProject();
-    makeActiveProject(project);
+    makeProjectActive(project);
 
     saveAndRender();
     buttonsEnabled();
@@ -130,8 +128,7 @@ export function projectDoubleClickedHandler(e) {
 
 export function projectClickedHandler(e) {
   const project = projectsArray.find(project => project.title === e.target.textContent);
-  disableCurrentActiveProject();
-  makeActiveProject(project);
+  makeProjectActive(project);
   saveAndRender();
 }
 
@@ -182,7 +179,7 @@ function buttonsEnabled() {
 function saveAndRender() {
   save();
   renderProjectList();
-  renderTaskListDisplay();
+  renderActiveProject();
 }
 
 
