@@ -63,8 +63,8 @@ function createLiForEachProject(projectList) {
 export function renderTaskListDisplay() {
   const displayDivElement = document.querySelector('.display');
   const displayH2Element = document.querySelector('.display-header');
-  const taskHolder = document.createElement('ul');
-  taskHolder.classList.add('task-holder');
+  const taskListElement = document.createElement('ul');
+  taskListElement.classList.add('task-list');
   let activeProject = projectsArray.find(project => project.active === true);
   if (!activeProject) {
     displayH2Element.textContent = 'No active project';
@@ -99,12 +99,12 @@ export function renderTaskListDisplay() {
     } else {
       taskItem.textContent = task.title; 
     }
-    taskHolder.appendChild(taskItem);
-    taskHolder.appendChild(btnDeleteTask);
+    taskListElement.appendChild(taskItem);
+    taskListElement.appendChild(btnDeleteTask);
   });
   
   // Add the task holder to the display
-  displayDivElement.appendChild(taskHolder);
+  displayDivElement.appendChild(taskListElement);
 
   const taskItems = document.querySelectorAll('.task-item');
 
