@@ -1,6 +1,6 @@
-import { renderDisplay, renderProjectList } from "./render";
+import { renderTaskListDisplay, renderProjectList } from "./render";
 import Project from "./project";
-import { list, displayHeaderEventHandler } from "./handlers";
+import { projectsArray, displayHeaderEventHandler } from "./handlers";
 
 export default function initial() {
   const body = document.querySelector('body');
@@ -13,7 +13,7 @@ export default function initial() {
 
   // defaultProject()
   renderProjectList();
-  renderDisplay();
+  renderTaskListDisplay();
 
 }
 
@@ -102,7 +102,7 @@ function createFooter() {
 
 function defaultProject() {
   const project = new Project('Default Project');
-  list.push(project);
+  projectsArray.push(project);
   project.active = true;
   renderProjectList();
   return project;

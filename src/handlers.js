@@ -1,11 +1,11 @@
 import Project from './project.js';
 import projectForm from './project-form.js';
-import {renderDisplay, renderProjectList, makeActiveProject, disableCurrentActiveProject} from './render.js';
+import {renderTaskListDisplay, renderProjectList, makeActiveProject, disableCurrentActiveProject} from './render.js';
 import taskForm from './task-form';
 import Task from './task';
 
 const LOCAL_STORAGE_LIST_KEY = 'project.lists';
-export let list = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [defaultProject()];
+export let projectsArray = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [defaultProject()];
 
 
 export function createProjectHandler() {
@@ -19,12 +19,12 @@ export function createProjectHandler() {
       alert('Please enter a title for your project');
       return
       }
-    if (list.find(project => project.title === title)) {
+    if (projectsArray.find(project => project.title === title)) {
       alert('Project already exists');
       return
     } 
     const project = new Project(title);
-    list.push(project);
+    projectsArray.push(project);
     disableCurrentActiveProject();
     makeActiveProject(project);
     saveAndRender();
@@ -37,7 +37,7 @@ export function createProjectHandler() {
 // used when createTask button is clicked and when a task li is clicked.
 export function taskCreateOrClickedHandler(e) {
   buttonsDisabled()
-  const activeProject = list.find(project => project.active === true);
+  const activeProject = projectsArray.find(project => project.active === true);
 
   if (!activeProject) {
     alert('No active project');
@@ -70,7 +70,7 @@ export function taskCreateOrClickedHandler(e) {
       } else {
         task.date = taskDueDate.value;
       }
-      list.forEach(project => {
+      projectsArray.forEach(project => {
         if (project.active === true) {
           let doNotAdd = false
   
@@ -100,7 +100,7 @@ export function taskCreateOrClickedHandler(e) {
 }
 
 export function projectDoubleClickedHandler(e) {
-  const project = list.find(project => project.title === e.target.textContent);
+  const project = projectsArray.find(project => project.title === e.target.textContent);
   projectForm(project);
   buttonsDisabled()
   const btnSubmit = document.querySelector('.submit-project');
@@ -129,20 +129,20 @@ export function projectDoubleClickedHandler(e) {
 }
 
 export function projectClickedHandler(e) {
-  const project = list.find(project => project.title === e.target.textContent);
+  const project = projectsArray.find(project => project.title === e.target.textContent);
   disableCurrentActiveProject();
   makeActiveProject(project);
   saveAndRender();
 }
 
 export function deleteProjectHandler(e) {
-  const projectToDelete = list.find(project => project.id === e.target.id);
-  const activeProject = list.find(project => project.active === true);
-  list.splice(list.indexOf(projectToDelete), 1);
+  const projectToDelete = projectsArray.find(project => project.id === e.target.id);
+  const activeProject = projectsArray.find(project => project.active === true);
+  projectsArray.splice(projectsArray.indexOf(projectToDelete), 1);
   // if the project to delete is the active project, make the first project in the list active
   if (activeProject === projectToDelete) {
-    if (list[0]) {
-      list[0].active = true;
+    if (projectsArray[0]) {
+      projectsArray[0].active = true;
     }
   }
   saveAndRender();
@@ -150,18 +150,20 @@ export function deleteProjectHandler(e) {
 
 
 export function deleteTaskHandler(e) {
-  const activeProject = list.find(project => project.active === true);
+  const activeProject = projectsArray.find(project => project.active === true);
   const taskToDelete = activeProject.taskList.find(task => task.id === e.target.id);
   activeProject.taskList.splice(activeProject.taskList.indexOf(taskToDelete), 1);
   saveAndRender();
 }
 
 export function displayHeaderEventHandler(e) {
-  const activeProject = list.find(project => project.active === true);
+  const activeProject = projectsArray.find(project => project.active === true);
   const displayHeader = document.querySelector('.display-header');
   activeProject.title = displayHeader.textContent;
   saveAndRender();
 }
+
+
 
 function buttonsDisabled() {
   const buttons = document.querySelectorAll('button');
@@ -180,12 +182,12 @@ function buttonsEnabled() {
 function saveAndRender() {
   save();
   renderProjectList();
-  renderDisplay();
+  renderTaskListDisplay();
 }
 
 
 function save() {
-  localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(list));
+  localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(projectsArray));
 }
 
 function defaultProject() {

@@ -1,69 +1,86 @@
-import { deleteProjectHandler, deleteTaskHandler, list, projectClickedHandler, projectDoubleClickedHandler, taskCreateOrClickedHandler } from "./handlers";
+import { deleteProjectHandler, deleteTaskHandler, projectsArray, projectClickedHandler, projectDoubleClickedHandler, taskCreateOrClickedHandler } from "./handlers";
 
 
 export function renderProjectList() {
   const projectList = document.querySelector('.project-list');
-  while( projectList.firstChild ){
-    projectList.removeChild( projectList.firstChild );
-  }
-  
-  for (let i = 0; i < list.length; i++) {
-    const projectContainer = document.createElement('div');
-    const li = document.createElement('li');
-    const btnDeleteProject = document.createElement('button');
-    
-    projectContainer.className = 'project-container';
-    li.className = 'project';
-    btnDeleteProject.className = 'btn-delete-project';
-    
-    li.textContent = list[i].title;
-    btnDeleteProject.textContent = 'X';
-    // create a unique id for each project using the date and time created with
-    // everything but numbers removed. 
-    btnDeleteProject.id = list[i].dateCreated.replace(/\D/g, '');
-    li.id = list[i].dateCreated.replace(/\D/g, '');
-    projectContainer.appendChild(li);
-    projectContainer.appendChild(btnDeleteProject);
-    projectList.appendChild(projectContainer);
-  /*   if (li.textContent === 'Default Project') {
-      makeActiveProject(li)
-    } */
-  }
+  clearProjectList(projectList);
+  createLiForEachProject(projectList);
+  addEventListenersToProjects();
+  addEventListenersToProjectDeleteButtons();
+}
+
+
+function addEventListenersToProjects() {
+  // if project is clicked, make it active and render the display.
+  // if project is double clicked, make it active and display project form.
   const projects = document.querySelectorAll('.project');
   projects.forEach(project => {
-    // if project is clicked, make it active and render the display.
     project.addEventListener('click', projectClickedHandler)
+
     project.addEventListener('dblclick', projectDoubleClickedHandler)
   })
-  
+}
+
+function addEventListenersToProjectDeleteButtons() {
   const btnDeleteProjects = document.querySelectorAll('.btn-delete-project');
   btnDeleteProjects.forEach(btn => {
     btn.addEventListener('click', deleteProjectHandler)
   }); 
 }
 
+function clearProjectList(projectList) {
+  while( projectList.firstChild ){
+    projectList.removeChild( projectList.firstChild );
+  }
+}
 
-export function renderDisplay() {
-  const display = document.querySelector('.display');
-  const displayHeader = document.querySelector('.display-header');
+function createLiForEachProject(projectList) {
+    // loop through list of projects and create a new list item for each project
+    for (let i = 0; i < projectsArray.length; i++) {
+      const projectContainer = document.createElement('div');
+      const li = document.createElement('li');
+      const btnDeleteProject = document.createElement('button');
+      
+      projectContainer.className = 'project-container';
+      li.className = 'project';
+      btnDeleteProject.className = 'btn-delete-project';
+      
+      // add project title to li text content and "X" to btnDeleteProject text content
+      li.textContent = projectsArray[i].title;
+      btnDeleteProject.textContent = 'X';
+
+      // create a unique id for each project using the date and time created with
+      // everything but numbers removed. 
+      btnDeleteProject.id = projectsArray[i].dateCreated.replace(/\D/g, '');
+      li.id = projectsArray[i].dateCreated.replace(/\D/g, '');
+
+      projectContainer.appendChild(li);
+      projectContainer.appendChild(btnDeleteProject);
+      projectList.appendChild(projectContainer);
+    }
+}
+
+export function renderTaskListDisplay() {
+  const displayDivElement = document.querySelector('.display');
+  const displayH2Element = document.querySelector('.display-header');
   const taskHolder = document.createElement('ul');
   taskHolder.classList.add('task-holder');
-  let activeProject = list.find(project => project.active === true);
+  let activeProject = projectsArray.find(project => project.active === true);
   if (!activeProject) {
-    displayHeader.textContent = 'No active project';
-    display.textContent = ` No tasks to display.`;
+    displayH2Element.textContent = 'No active project';
+    displayDivElement.textContent = ` No tasks to display.`;
     return
   }
 
-  displayHeader.textContent = activeProject.title;
+  displayH2Element.textContent = activeProject.title;
   
   // clear the display
-  while(display.firstChild) {
-    display.removeChild(display.firstChild);
+  while(displayDivElement.firstChild) {
+    displayDivElement.removeChild(displayDivElement.firstChild);
   }
 
   if (activeProject.taskList.length === 0) {
-    display.textContent = ` No tasks to display.`;
+    displayDivElement.textContent = ` No tasks to display.`;
     return
   }
   
@@ -87,7 +104,7 @@ export function renderDisplay() {
   });
   
   // Add the task holder to the display
-  display.appendChild(taskHolder);
+  displayDivElement.appendChild(taskHolder);
 
   const taskItems = document.querySelectorAll('.task-item');
 
@@ -111,7 +128,7 @@ export function makeActiveProject(project) {
 }
 
 export function disableCurrentActiveProject() {
-  const activeProject = list.find(project => project.active === true);
+  const activeProject = projectsArray.find(project => project.active === true);
   if (activeProject) {
     activeProject.active = false;
   }
