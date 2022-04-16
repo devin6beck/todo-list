@@ -69,23 +69,15 @@ export function taskCreateOrClickedHandler(e) {
       } else {
         task.date = taskDueDate.value;
       }
-      projectsArray.forEach(project => {
-        if (project.active === true) {
-          let doNotAdd = false
-  
-          project.taskList.forEach(task => {
-            if (task.title === taskTitle.value && task.date === taskDueDate.value) {
-              alert('Task with same title and due date already exists');
-              doNotAdd = true;
-              return;
-            } 
-          });
 
-          if (!doNotAdd) {
-          project.taskList.push(task);
-          }
-        }
-      })
+      const project = projectsArray.find(project => project.active === true);
+
+      if (project.taskList.find(task => task.title === taskTitle.value || task.date === taskDueDate.value)) {
+        alert('Task already exists with same title and due date.');
+      } else {
+        project.taskList.push(task);
+      }
+      
     } else {
       // If a task is clicked, open the form with the task's title and date
       task = taskClicked
