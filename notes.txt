@@ -9,6 +9,6 @@ functionality
 when the project title in the display is clicked it should allow edit of title
 
 need a way to exit out of project form and task form.
---using exit and a button in the form.
+--using escape and a button in the form.
 
 If no date is imputed for task then task should say no due date.

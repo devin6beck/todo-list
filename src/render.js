@@ -1,4 +1,4 @@
-import { deleteProjectHandler, deleteTaskHandler, projectsArray, projectClickedHandler, projectDoubleClickedHandler, taskCreateOrClickedHandler } from "./handlers";
+import { getActiveProject, assignActiveProject, deleteProjectHandler, deleteTaskHandler, projectsArray, projectClickedHandler, projectDoubleClickedHandler, loadTaskForm, loadProjectForm } from "./handlers";
 
 
 export function renderProjectList() {
@@ -16,7 +16,7 @@ function addEventListenersToProjects() {
   const projects = document.querySelectorAll('.project');
   projects.forEach(project => {
     project.addEventListener('click', projectClickedHandler);
-    project.addEventListener('dblclick', projectDoubleClickedHandler)
+    project.addEventListener('dblclick', loadProjectForm)
   })
 }
 
@@ -65,9 +65,12 @@ export function renderActiveProject() {
 
   // if there is no active project, display a message informing the user.
   if (!getActiveProject()) {
-    displayH2Element.textContent = 'No active project';
-    displayDivElement.textContent = ` No tasks to display.`;
-    return
+    if (!projectsArray[0]) {
+      displayH2Element.textContent = 'No projects yet. Click the + button to create a project.';
+      displayDivElement.textContent = ` No tasks to display.`;
+      return
+    }
+    assignActiveProject(projectsArray[0]);
   }
 
   // set the display header to the active project title
@@ -89,7 +92,7 @@ export function renderActiveProject() {
   const taskItems = document.querySelectorAll('.task-item');
 
   taskItems.forEach(task => {
-    task.addEventListener('click', taskCreateOrClickedHandler)
+    task.addEventListener('click', loadTaskForm)
   });
   
   const btnDeleteTask = document.querySelectorAll('.btn-delete-task');
@@ -138,15 +141,3 @@ function createLiForEachTask() {
   });
 }
 
-
-
-export function makeProjectActive(project) {
-  if (getActiveProject()) {
-    getActiveProject().active = false
-  }
-  project.active = true;
-}
-
-function getActiveProject() {
-  return projectsArray.find(project => project.active === true);
-}

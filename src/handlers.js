@@ -1,142 +1,54 @@
 import Project from './project.js';
 import projectForm from './project-form.js';
-import {renderActiveProject, renderProjectList, makeProjectActive, disableCurrentActiveProject} from './render.js';
-import taskForm from './task-form';
+import {renderActiveProject, renderProjectList,} from './render.js';
+import createTaskForm from './task-form';
 import Task from './task';
 
 const LOCAL_STORAGE_LIST_KEY = 'project.lists';
 export let projectsArray = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [defaultProject()];
 
-
-export function createProjectHandler() {
+export function loadProjectForm(e) {
+  const projectClicked = projectsArray.find(project => project.title === e.target.textContent);
   buttonsDisabled()
-  projectForm();
-  const btnSubmit = document.querySelector('.submit-project');
-  btnSubmit.addEventListener('click', (e) => {
-    e.preventDefault();
-    const title = document.querySelector('.project-title').value;
-    if (title === '' || title === null) {
-      alert('Please enter a title for your project');
-      return
-      }
-    if (projectsArray.find(project => project.title === title)) {
-      alert('Project already exists');
-      return
-    } 
-    const project = new Project(title);
-    projectsArray.push(project);
-    makeProjectActive(project);
-    saveAndRender();
-    buttonsEnabled();
-    const article = document.querySelector('article');
-    article.remove();
-  });
-}
-
-// used when createTask button is clicked and when a task li is clicked.
-export function taskCreateOrClickedHandler(e) {
-  buttonsDisabled()
-  const activeProject = projectsArray.find(project => project.active === true);
-
-  if (!activeProject) {
-    alert('No active project');
-    return;
-  }
-
-  const taskClicked = activeProject.taskList.find(task => task.id === e.target.dataset.taskId);
-  // creates a form that displayed the title and date of the task clicked or 
-  // if the create Task button is clicked is creates a blank form.
-  taskForm(taskClicked);
-  const taskTitle = document.querySelector('.task-title');
-  const taskDueDate = document.querySelector('.due-date');
-  const btnSubmit = document.querySelector('.submit-task');
-
-
-  btnSubmit.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (taskTitle.value === null || taskTitle.value === ''){
-      alert('Please enter a title for the task');
-      return;
-    }
-    const formContainer = document.querySelector('.form-container');
-
-    let task;
-    if (!taskClicked) {
-      // if the Create Task button is clicked, create a new task
-      task = new Task(taskTitle.value);
-      if (taskDueDate.value === null || taskDueDate.value === '') {
-        task.date = '';
-      } else {
-        task.date = taskDueDate.value;
-      }
-
-      const project = projectsArray.find(project => project.active === true);
-
-      if (project.taskList.find(task => task.title === taskTitle.value || task.date === taskDueDate.value)) {
-        alert('Task already exists with same title and due date.');
-      } else {
-        project.taskList.push(task);
-      }
-      
-    } else {
-      // If a task is clicked, open the form with the task's title and date
-      task = taskClicked
-      task.title = taskTitle.value;
-      task.date = taskDueDate.value;
-    }
-    formContainer.remove();
-    saveAndRender();
-    buttonsEnabled();
-  })
-}
-
-export function projectDoubleClickedHandler(e) {
-  const project = projectsArray.find(project => project.title === e.target.textContent);
-  projectForm(project);
-  buttonsDisabled()
-  const btnSubmit = document.querySelector('.submit-project');
-  btnSubmit.addEventListener('click', (e) => {
-    e.preventDefault();
-    const title = document.querySelector('.project-title').value;
-    if (title === '' || title === null) {
-      alert('Please enter a title for your project');
-      return
-      }
-    // if (list.find(project => project.title === title)) {
-    //   alert('Project already exists');
-    //   return
-    // } 
-    // const project = new Project(title);
-    // list.push(project);
-    project.title = title;
-    makeProjectActive(project);
-
-    saveAndRender();
-    buttonsEnabled();
-    const article = document.querySelector('article');
-    article.remove();
-  });
-}
-
-export function projectClickedHandler(e) {
-  const project = projectsArray.find(project => project.title === e.target.textContent);
-  makeProjectActive(project);
-  saveAndRender();
+  projectForm(projectClicked);
+  projectFormSubmitHandler(projectClicked)
 }
 
 export function deleteProjectHandler(e) {
   const projectToDelete = projectsArray.find(project => project.id === e.target.id);
-  const activeProject = projectsArray.find(project => project.active === true);
+
+  // // if the project to delete is the active project, make the first project in the list active
+  // if (getActiveProject() === projectToDelete) {
+  //   if (projectsArray[0]) {
+  //     projectsArray[0].active = true;
+  //   }
+  // }
+  
+  // remove the project from the array. 
   projectsArray.splice(projectsArray.indexOf(projectToDelete), 1);
-  // if the project to delete is the active project, make the first project in the list active
-  if (activeProject === projectToDelete) {
-    if (projectsArray[0]) {
-      projectsArray[0].active = true;
-    }
-  }
   saveAndRender();
 }
 
+export function projectClickedHandler(e) {
+  const project = projectsArray.find(project => project.title === e.target.textContent);
+  assignActiveProject(project);
+  saveAndRender();
+}
+
+export function loadTaskForm(e) {
+  // If a task was clicked, populate the form with the task's title and date.
+  // If the Create Task button was clicked, populate the form with an empty title and date.
+
+  buttonsDisabled()
+  if (!getActiveProject()) {
+    alert('No active project');
+    buttonsEnabled();
+    return;
+  }
+  const taskClicked = getActiveProject().taskList.find(task => task.id === e.target.dataset.taskId);
+  createTaskForm(taskClicked);
+  taskFormSubmitHandler(taskClicked) 
+}
 
 export function deleteTaskHandler(e) {
   const activeProject = projectsArray.find(project => project.active === true);
@@ -151,8 +63,6 @@ export function displayHeaderEventHandler(e) {
   activeProject.title = displayHeader.textContent;
   saveAndRender();
 }
-
-
 
 function buttonsDisabled() {
   const buttons = document.querySelectorAll('button');
@@ -174,7 +84,6 @@ function saveAndRender() {
   renderActiveProject();
 }
 
-
 function save() {
   localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(projectsArray));
 }
@@ -184,3 +93,176 @@ function defaultProject() {
   project.active = true;
   return project;
 }
+
+export function getActiveProject() {
+  const activeProject = projectsArray.find(project => project.active === true);
+  // if (!activeProject) {
+  //   return null;
+  // }
+  return activeProject;
+}
+
+
+
+function removeFormContainer() {
+  const formContainer = document.querySelector('.form-container');
+  formContainer.remove();
+}
+
+function removeProjectFormContainer() {
+  const taskFormContainer = document.querySelector('.form-container');
+  taskFormContainer.remove();
+}
+
+function assignTaskDueDate(task, taskDueDate) {
+  if (taskDueDate.value === null || taskDueDate.value === '') {
+    task.date = '';
+  } else {
+    task.date = taskDueDate.value;
+  }
+}
+
+function addTaskToProject(project, task, taskTitleInputElement, taskDueDateInputElement) {
+  if (project.taskList.find(task => task.title === taskTitleInputElement.value && 
+    task.date === taskDueDateInputElement.value)) {
+      alert('Task already exists with same title and due date.');
+    } else {
+      project.taskList.push(task);
+    }
+}
+
+export function assignActiveProject(project) {
+  getActiveProject() === undefined ? '' : getActiveProject().active = false; 
+  project.active = true;
+}
+
+function taskFormSubmitHandler(taskClicked) {
+  const btnSubmitElement = document.querySelector('.submit-task');
+  const taskTitleInputElement = document.querySelector('.task-title');
+  const taskDueDateInputElement = document.querySelector('.due-date');
+  
+  btnSubmitElement.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (taskTitleInputElement.value === null || taskTitleInputElement.value === ''){
+      alert('Please enter a title for the task');
+      return;
+    }
+    
+    if (taskClicked) {
+      // Edit the task's title and date to new input values.
+      taskClicked.title = taskTitleInputElement.value;
+      taskClicked.date = taskDueDateInputElement.value;
+    } else {
+      // Create a new task with the title and date input.
+      const task = new Task(taskTitleInputElement.value);
+      assignTaskDueDate(task, taskDueDateInputElement);
+      
+      const project = projectsArray.find(project => project.active === true);
+      addTaskToProject(project, task, taskTitleInputElement, taskDueDateInputElement);
+    }
+    removeFormContainer()
+    saveAndRender();
+    buttonsEnabled();
+  })
+  
+}
+
+function projectFormSubmitHandler(projectClicked) {
+  const btnSubmit = document.querySelector('.submit-project');
+  btnSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    let project = projectClicked;
+    const title = document.querySelector('.project-title').value;
+    if (title === '' || title === null) {
+      alert('Please enter a title for your project');
+      return
+    }
+    if (projectClicked) {
+      project.title = title;
+    } else {
+      if (projectsArray.find(project => project.title === title)) {
+        alert('Project already exists');
+        return
+      } 
+      project = new Project(title);
+      projectsArray.push(project);
+
+    }
+    assignActiveProject(project);
+    saveAndRender();
+    buttonsEnabled();
+    removeFormContainer()
+  });
+}
+
+
+
+// function addClickListenerToEditTaskSubmitBtn(taskClicked) {
+//   const btnSubmitElement = document.querySelector('.submit-task');
+//   const taskTitleInputElement = document.querySelector('.task-title');
+//   const taskDueDateInputElement = document.querySelector('.due-date');
+
+//   btnSubmitElement.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     if (taskTitleInputElement.value === null || taskTitleInputElement.value === ''){
+//       alert('Please enter a title for the task');
+//       return;
+//     }
+//     const formContainer = document.querySelector('.form-container');
+
+//     // Edit the task's title and date to new input values.
+//     taskClicked.title = taskTitleInputElement.value;
+//     taskClicked.date = taskDueDateInputElement.value;
+
+//     formContainer.remove();
+//     saveAndRender();
+//     buttonsEnabled();
+//   })
+// }
+
+// export function createProjectHandler() {
+//   buttonsDisabled()
+//   projectForm();
+//   const btnSubmit = document.querySelector('.submit-project');
+//   btnSubmit.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     const title = document.querySelector('.project-title').value;
+//     if (title === '' || title === null) {
+//       alert('Please enter a title for your project');
+//       return
+//     }
+//     if (projectsArray.find(project => project.title === title)) {
+//       alert('Project already exists');
+//       return
+//     } 
+//     const project = new Project(title);
+//     projectsArray.push(project);
+//     makeProjectActive(project);
+//     saveAndRender();
+//     buttonsEnabled();
+//     const article = document.querySelector('article');
+//     article.remove();
+//   });
+// }
+
+// export function projectDoubleClickedHandler(e) {
+//   const project = projectsArray.find(project => project.title === e.target.textContent);
+//   projectForm(project);
+//   buttonsDisabled()
+//   const btnSubmit = document.querySelector('.submit-project');
+//   btnSubmit.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     const title = document.querySelector('.project-title').value;
+//     if (title === '' || title === null) {
+//       alert('Please enter a title for your project');
+//       return
+//       }
+
+//     project.title = title;
+//     makeProjectActive(project);
+
+//     saveAndRender();
+//     buttonsEnabled();
+//     removeFormContainer()
+//   });
+// }

@@ -1,4 +1,4 @@
-export default function taskForm(task) {
+export default function createTaskForm(task) {
   const body = document.querySelector('body');
   const article = document.createElement('article');
   const form = document.createElement('form');
