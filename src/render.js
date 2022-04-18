@@ -1,75 +1,32 @@
-import { getActiveProject, assignActiveProject, deleteProjectHandler, deleteTaskHandler, projectsArray, projectClickedHandler, projectDoubleClickedHandler, loadTaskForm, loadProjectForm } from "./handlers";
+import { getActiveProject, assignActiveProject, deleteProjectHandler, deleteTaskHandler, projectsArray, projectClickedHandler, loadTaskForm, loadProjectForm } from "./handlers";
 
 
 export function renderProjectList() {
+  /* 
+  This function clears the list of projects from the display
+  and then creates a new list of projects from the projectsArray to display.
+   */
   const projectList = document.querySelector('.project-list');
-  clearProjectList(projectList);
-  createLiForEachProject(projectList);
-  addEventListenersToProjects();
-  addEventListenersToProjectDeleteButtons();
-}
-
-
-// if a project is clicked, make it active and render the display.
-// if a project is double clicked, make it active and display project form.
-function addEventListenersToProjects() {
-  const projects = document.querySelectorAll('.project');
-  projects.forEach(project => {
-    project.addEventListener('click', projectClickedHandler);
-    project.addEventListener('dblclick', loadProjectForm)
-  })
-}
-
-function addEventListenersToProjectDeleteButtons() {
-  const btnDeleteProjects = document.querySelectorAll('.btn-delete-project');
-  btnDeleteProjects.forEach(btn => {
-    btn.addEventListener('click', deleteProjectHandler)
-  }); 
-}
-
-function clearProjectList(projectList) {
-  while( projectList.firstChild ){
-    projectList.removeChild( projectList.firstChild );
+  while(projectList.firstChild){
+    projectList.removeChild(projectList.firstChild);
   }
-}
-
-function createLiForEachProject(projectList) {
-    // loop through list of projects and create a new list item for each project
-    for (let i = 0; i < projectsArray.length; i++) {
-      const projectContainer = document.createElement('div');
-      const li = document.createElement('li');
-      const btnDeleteProject = document.createElement('button');
-      
-      projectContainer.className = 'project-container';
-      li.className = 'project';
-      btnDeleteProject.className = 'btn-delete-project';
-      
-      // add project title to li text content and "X" to btnDeleteProject text content
-      li.textContent = projectsArray[i].title;
-      btnDeleteProject.textContent = 'X';
-
-      // create a unique id for each project using the date and time created with
-      // everything but numbers removed. 
-      btnDeleteProject.id = projectsArray[i].dateCreated.replace(/\D/g, '');
-      li.id = projectsArray[i].dateCreated.replace(/\D/g, '');
-
-      projectContainer.appendChild(li);
-      projectContainer.appendChild(btnDeleteProject);
-      projectList.appendChild(projectContainer);
-    }
+  createLiForEachProject(projectList);
 }
 
 export function renderActiveProject() {
   const displayDivElement = document.querySelector('.display');
   const displayH2Element = document.querySelector('.display-header');
 
-  // if there is no active project, display a message informing the user.
+  // if there are no projects in the array, render a message to the user and return
+  if (!projectsArray[0]) {
+    displayH2Element.textContent = 'No projects yet. Click the + button to create a project.';
+    displayDivElement.textContent = ` No tasks to display. Click the + button to create a project.`;
+    return
+  }
+
+  // if there is no active project that means the user deleted the active project.
+  // make the first project in the array the active project.
   if (!getActiveProject()) {
-    if (!projectsArray[0]) {
-      displayH2Element.textContent = 'No projects yet. Click the + button to create a project.';
-      displayDivElement.textContent = ` No tasks to display.`;
-      return
-    }
     assignActiveProject(projectsArray[0]);
   }
 
@@ -79,48 +36,29 @@ export function renderActiveProject() {
   // clear the task list display
   removeElementsChildren(displayDivElement);
 
-  createTaskListElement(displayDivElement);
-
-
+  // if there are no tasks in the active project, render a message to the user and return
   if (getActiveProject().taskList.length === 0) {
     displayDivElement.textContent = ` No tasks to display.`;
     return
   }
 
-  createLiForEachTask()
+  // append the list of task to the div that displays the tasks
+  displayDivElement.appendChild(createTaskListElement());
 
-  const taskItems = document.querySelectorAll('.task-item');
-
-  taskItems.forEach(task => {
-    task.addEventListener('click', loadTaskForm)
-  });
-  
-  const btnDeleteTask = document.querySelectorAll('.btn-delete-task');
-  btnDeleteTask.forEach(btn => {
-    btn.addEventListener('click', deleteTaskHandler);
-  });
+  createLiForEachTask();
 }
 
-function createTaskListElement(displayDivElement) {
+/* FUNCTIONS FOR renderActiveProject() */
+function createTaskListElement() {
   const taskListElement = document.createElement('ul');
   taskListElement.classList.add('task-list');
-  // Add the task holder to the display
-  displayDivElement.appendChild(taskListElement);
+  return taskListElement;
 }
 
-function getTaskListElement() {
-  return document.querySelector('.task-list');
-}
 
-function removeElementsChildren(element) {
-  while(element.firstChild) {
-    element.removeChild(element.firstChild);
-  }
-}
 
 function createLiForEachTask() {
-  const taskListElement = getTaskListElement();
-  console.log(`Here is the taskListElement: ${taskListElement}`)
+  const taskListElement = document.querySelector('.task-list');
   // loop through list of tasks and create a new list item for each task
   getActiveProject().taskList.forEach(task => {
     const taskItem = document.createElement('li');
@@ -138,6 +76,58 @@ function createLiForEachTask() {
     }
     taskListElement.appendChild(taskItem);
     taskListElement.appendChild(btnDeleteTask);
+    taskItem.addEventListener('click', loadTaskForm);
+    btnDeleteTask.addEventListener('click', deleteTaskHandler);
   });
 }
 
+/* FUNCTIONS FOR renderProjectList */
+
+function clearProjectList(projectList) {
+  while( projectList.firstChild ){
+    projectList.removeChild( projectList.firstChild );
+  }
+}
+
+function createLiForEachProject(projectList) {
+    // loop through list of projects and create a new list item for each project
+    for (let i = 0; i < projectsArray.length; i++) {
+      // create elements for the project
+      const projectContainerDivElement = document.createElement('div');
+      const projectLiElement = document.createElement('li');
+      const btnDeleteProjectElement = document.createElement('button');
+      
+      // add class names to the elements
+      projectContainerDivElement.className = 'project-container';
+      projectLiElement.className = 'project';
+      btnDeleteProjectElement.className = 'btn-delete-project';
+      
+      // add project title to li text content and "X" to btnDeleteProject text content
+      projectLiElement.textContent = projectsArray[i].title;
+      btnDeleteProjectElement.textContent = 'X';
+
+      // create a unique id for each project using the date and time created with
+      // everything but numbers removed. 
+      btnDeleteProjectElement.id = projectsArray[i].dateCreated.replace(/\D/g, '');
+      projectLiElement.id = projectsArray[i].dateCreated.replace(/\D/g, '');
+
+      projectContainerDivElement.appendChild(projectLiElement);
+      projectContainerDivElement.appendChild(btnDeleteProjectElement);
+      projectList.appendChild(projectContainerDivElement);
+
+      // add event listeners to the project
+
+      // if a project is clicked, make it active and render the display.
+      projectLiElement.addEventListener('click', projectClickedHandler);
+      // if a project is double clicked, make it active and display project form.
+      projectLiElement.addEventListener('dblclick', loadProjectForm)
+      btnDeleteProjectElement.addEventListener('click', deleteProjectHandler)
+    }
+}
+
+/* Other Functions */
+function removeElementsChildren(element) {
+  while(element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
