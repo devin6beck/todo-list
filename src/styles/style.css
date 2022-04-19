@@ -1,7 +1,12 @@
+
+:root {
+  --main-border-color: #524e4e;
+}
+
 body {  
   display: grid;
   grid-template-columns: 0.5fr 1.5fr;
-  grid-template-rows: 0.6fr 2.1fr 0.3fr;
+  grid-template-rows: 0.4fr 2.5fr 0.1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
@@ -11,6 +16,12 @@ body {
   background-color: black;
   color: white;
   height: 100vh;
+}
+
+.header { 
+  grid-area: header; 
+  border: 2px solid var(--main-border-color);
+  border-bottom: 0;
 }
 
 .current-page {  
@@ -23,19 +34,22 @@ body {
     "display-header"
     "display";
   grid-area: current-page;
-  border: 2px solid purple;
+  border: 2px solid var(--main-border-color);
+}
+
+.options-container {
+  display: flex;
+  margin: 25px;
 }
 
 .display-header { 
   grid-area: display-header; 
-  border: 2px solid green;
+  text-align: center;
 
 }
 
 .display { 
   grid-area: display; 
-  border: 2px solid blue;
-
 }
 
 .task-item {
@@ -46,7 +60,8 @@ body {
 
 .sidebar { 
   grid-area: sidebar; 
-  border: 2px solid yellow;
+  border: 2px solid var(--main-border-color);
+  border-right: 0;
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -92,10 +107,7 @@ button {
   bottom: 10%;
 } */
 
-.header { 
-  grid-area: header; 
-  border: 2px solid red;
-}
+
 
 h1 {
   text-align: center;
@@ -103,7 +115,11 @@ h1 {
 
 .footer { 
   grid-area: footer; 
-  border: 2px solid red;
+  border: 2px solid var(--main-border-color);
+  border-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center
 
 }
 
