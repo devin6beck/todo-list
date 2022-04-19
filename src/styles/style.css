@@ -95,7 +95,10 @@ button {
 .header { 
   grid-area: header; 
   border: 2px solid red;
+}
 
+h1 {
+  text-align: center;
 }
 
 .footer { 
