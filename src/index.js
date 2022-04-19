@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import './style.css';
-import initial from './initial.js';
-import {loadProjectForm, loadTaskForm } from './handlers';
+import './styles/style.css';
+import initial from './scripts/dom/initial.js';
+import {loadProjectForm, loadTaskForm } from './scripts/brain/handlers';
 
 initial();
 

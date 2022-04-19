@@ -1,6 +1,7 @@
-import { renderActiveProject, renderProjectList } from "./render";
-import Project from "./project";
-import { projectsArray, displayHeaderEventHandler } from "./handlers";
+import { renderActiveProject } from "./render-active-project.js";
+import { renderProjectList } from './render-projects-list.js';
+import Project from '../brain/project.js';
+import { projectsArray, displayHeaderEventHandler } from "../brain/handlers";
 
 export default function initial() {
   const body = document.querySelector('body');
@@ -98,12 +99,4 @@ function createFooter() {
   footer.appendChild(span);
 
   return footer;
-}
-
-function defaultProject() {
-  const project = new Project('Default Project');
-  projectsArray.push(project);
-  project.active = true;
-  renderProjectList();
-  return project;
 }

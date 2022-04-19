@@ -30,7 +30,6 @@ export default function projectForm(project) {
   article.appendChild(form);
   body.appendChild(article);
   if (project) {
-    console.log(`NOOOOO`);
     titleInput.value = project.title;
   }
 }

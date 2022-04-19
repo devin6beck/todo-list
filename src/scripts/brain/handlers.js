@@ -1,7 +1,8 @@
 import Project from './project.js';
-import projectForm from './project-form.js';
-import {renderActiveProject, renderProjectList,} from './render.js';
-import createTaskForm from './task-form';
+import projectForm from '../dom/render-project-form.js';
+import { renderActiveProject } from "../dom/render-active-project.js";
+import { renderProjectList } from '../dom/render-projects-list.js';
+import createTaskForm from '../dom/render-task-form';
 import Task from './task';
 
 const LOCAL_STORAGE_LIST_KEY = 'project.lists';
@@ -16,15 +17,6 @@ export function loadProjectForm(e) {
 
 export function deleteProjectHandler(e) {
   const projectToDelete = projectsArray.find(project => project.id === e.target.id);
-
-  // // if the project to delete is the active project, make the first project in the list active
-  // if (getActiveProject() === projectToDelete) {
-  //   if (projectsArray[0]) {
-  //     projectsArray[0].active = true;
-  //   }
-  // }
-  
-  // remove the project from the array. 
   projectsArray.splice(projectsArray.indexOf(projectToDelete), 1);
   saveAndRender();
 }
