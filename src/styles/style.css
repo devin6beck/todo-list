@@ -136,7 +136,15 @@ h1 {
 }
 
 .form {
-  border: 1px solid red;
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+}
+
+.task-notes-input {
+  height: 100px;
 }
 

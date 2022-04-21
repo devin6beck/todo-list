@@ -132,9 +132,10 @@ function taskFormSubmitHandler(taskClicked) {
   const btnSubmitElement = document.querySelector('.submit-task');
   const taskTitleInputElement = document.querySelector('.task-title');
   const taskDueDateInputElement = document.querySelector('.due-date');
+  const taskNotesInputElement = document.querySelector('.task-notes-input');
   
   btnSubmitElement.addEventListener('click', (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (taskTitleInputElement.value === null || taskTitleInputElement.value === ''){
       alert('Please enter a title for the task');
       return;
@@ -144,10 +145,12 @@ function taskFormSubmitHandler(taskClicked) {
       // Edit the task's title and date to new input values.
       taskClicked.title = taskTitleInputElement.value;
       taskClicked.date = taskDueDateInputElement.value;
+      taskClicked.notes = taskNotesInputElement.value;
     } else {
       // Create a new task with the title and date input.
       const task = new Task(taskTitleInputElement.value);
       assignTaskDueDate(task, taskDueDateInputElement);
+      task.notes = taskNotesInputElement.value;
       
       const project = projectsArray.find(project => project.active === true);
       addTaskToProject(project, task, taskTitleInputElement, taskDueDateInputElement);
